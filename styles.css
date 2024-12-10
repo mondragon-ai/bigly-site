@@ -281,7 +281,7 @@ main {
 }
 
 main section {
-  scroll-snap-align: center; /* Center each section during snapping */
+  scroll-snap-align: start; /* Center each section during snapping */
   min-height: 100vh;
   height: 100vh; /* Full viewport height for snapping */
   display: flex; /* Align content inside each section */
@@ -313,6 +313,22 @@ main section {
   align-items: flex-end;
 }
 
+#bg-lines {
+  color: transparent;
+  translate: none;
+  rotate: none;
+  scale: none;
+  transform: translate(90%, 0%) scale(2, 2);
+  opacity: 1;
+  visibility: inherit;
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
 .sectionOne > div > img {
   height: auto;
   width: 65%;
@@ -325,6 +341,7 @@ main section {
   line-height: 225px;
   color: #f9f9f9;
   font-family: "Anton SC", sans-serif;
+  text-transform: uppercase;
 }
 
 .sectionOne > .txt .abs {
@@ -341,6 +358,7 @@ main section {
   top: 45%;
   transform: rotate(350deg) translateY(-45%);
   z-index: 10;
+  text-shadow: 0 0 20px #6b0106;
 }
 
 .sectionOne > .txt p {
@@ -356,7 +374,40 @@ main section {
   width: 60%;
 }
 
-/* .</section>style="background: #007bff"> */
+.home-svg {
+  position: absolute;
+  color: rgb(193, 40, 46);
+  z-index: 0;
+  top: 0;
+  right: 0;
+  height: 100vh;
+}
+
+.home-svg path,
+.home-svg svg {
+  /* fill: white; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+.path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 0;
+  animation: dash 1s linear;
+  transition: animate 0.2s ease;
+}
+
+/* @keyframes dash {
+  from {
+    stroke-dashoffset: 320;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+} */
 
 /* ================================================================================================================================================ */
 /* ! SECTION TWO                                                                                                                                    */
@@ -415,4 +466,67 @@ main section {
 .sectionTwo > .txt {
   align-items: self-start;
   width: 60%;
+}
+
+/* ================================================================================================================================================ */
+/* ! SECTION TWO                                                                                                                                    */
+/* ================================================================================================================================================ */
+.sectionThree {
+  background: #f4f4f4;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sectionThree > div {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sectionThree > div > img {
+  height: auto;
+  width: 65%;
+  margin-right: 1.5rem;
+}
+
+.sectionThree > .txt {
+  padding: 0 2rem;
+}
+
+.sectionThree > .txt h1 {
+  font-weight: 900;
+  font-size: 150px;
+  line-height: 155px;
+  color: #212121;
+  font-family: "Anton SC", sans-serif;
+}
+
+.sectionThree > .txt h1:first-of-type {
+  color: #333333;
+}
+.sectionThree > .txt h1:last-of-type {
+  color: #212121;
+}
+
+#topography {
+  color: transparent;
+  translate: none;
+  rotate: none;
+  scale: none;
+  /* transform: translate(90%, 0%) scale(2, 2); */
+  opacity: 0.2;
+  visibility: inherit;
+  position: absolute;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+  pointer-events: none;
 }

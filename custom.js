@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionOneElement = document.querySelector(".sectionOne");
   const sectionOneHeaders = sectionOneElement.querySelectorAll(".txt h1");
   const thatHdr = sectionOneElement.querySelector(".txt .abs");
-  const sectionOneLogo = sectionOneElement.querySelector(".sectionOne img");
+  const bkgHdr = sectionOneElement.querySelector(".sectionOne #bg-lines");
+  const sectionOneLogo = sectionOneElement.querySelector(".sectionOne div img");
   const sectionOneP = sectionOneElement.querySelector(".txt p");
 
   // Section Two Elements
@@ -15,13 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionTwoHdr = sectionTwoEl.querySelector(".txt h1");
   const sectionTwoP = sectionTwoEl.querySelector(".txt p");
 
+  // Section Three Elements
+  const sectionThreeEl = document.querySelector(".sectionThree");
+  const sectionThreeHdr = sectionThreeEl.querySelector(".txt h1");
+  const sectionThreeP = sectionThreeEl.querySelector(".txt p");
+
   mainElement.addEventListener("scroll", () => {
     const scrollY = mainElement.scrollTop;
+    const offset = scrollY - headerHeight;
     const sectionOneHeight = sectionOneElement.getBoundingClientRect().height;
 
     // Section One
-    if (scrollY > headerHeight) {
-      const offset = scrollY - headerHeight;
+    if (scrollY >= headerHeight) {
       const opacityValue = Math.max(0, 1 - (offset * 1.7) / sectionOneHeight);
       const progress = offset / sectionOneHeight;
 
@@ -36,13 +42,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
+      bkgHdr.style.transform = `translate(90%, 0%) scale(2, 2) translateY(${
+        offset * -0.5
+      }px)`;
+
       sectionOneP.style.transform = `translateX(${offset * 2.2}px)`;
       sectionOneP.style.opacity = opacityValue;
 
       sectionOneLogo.style.opacity = opacityValue;
-      sectionOneLogo.style.transform = `scale(${1 - progress * 0.2})`;
+      sectionOneLogo.style.transform = `rotate(${Math.round(
+        1 - progress * 360,
+      )}deg) scale(${1 - progress * 0.5})`;
     } else {
-      resetSectionOneStyles(sectionOneHeaders, sectionOneLogo);
+      resetSectionOneStyles(sectionOneHeaders, sectionOneLogo, sectionOneP);
+      path.style.strokeDashoffset = 0;
+      path.style.opacity = 1;
     }
 
     // Section Two
@@ -50,12 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const sectionTwoEnd = sectionOneHeight * 2;
     const sectionTwoProgress = (scrollY - sectionTwoStart) / sectionOneHeight;
 
-    console.log({scrollY, sectionTwoStart, sectionTwoProgress});
-
     if (scrollY >= sectionTwoStart && scrollY <= sectionTwoEnd) {
       // Translate from out of view to 0px
       const translateYValue = Math.max(0, 100 - sectionTwoProgress * 100) - 100;
-      console.log({translateYValue});
       const opacityValue = Math.max(0, 1 - sectionTwoProgress * 1.2);
       const scaleValue = Math.max(0.2, 1 - sectionTwoProgress * 1.2);
 
@@ -66,7 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sectionTwoEl.style.transform = `scale(${scaleValue})`;
       sectionTwoEl.style.opacity = opacityValue;
-    } else if (scrollY < sectionTwoStart - 20) {
+
+      const reverse = sectionOneHeight / (scrollY - sectionTwoStart);
+      const progress = offset / sectionOneHeight;
+      console.log({reverse});
+
+      sectionThreeEl.style.transform = `scale(${reverse})`;
+      sectionThreeEl.style.opacity = Math.abs(1 - progress);
+    } else if (scrollY <= sectionTwoStart) {
       // Reset H1 styles
       sectionTwoHdr.style.transform = `translateY(-${sectionOneHeight}px)`;
       sectionTwoHdr.style.opacity = 0.2;
@@ -81,9 +99,31 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (scrollY > sectionTwoEnd) {
       // Reset styles when out of range
       resetSectionTwoStyles(sectionTwoHdr, sectionTwoP);
-      sectionTwoEl.style.transform = `scale(1)`;
-      sectionTwoEl.style.opacity = 1;
+      sectionTwoEl.style.transform = `scale(0)`;
+      sectionTwoEl.style.opacity = 0;
     }
+
+    // Section Three
+    const sectionThreeStart = sectionOneHeight;
+    const sectionThreeEnd = sectionOneHeight * 3;
+    const sectionThreeProgress =
+      (scrollY - sectionThreeStart) / sectionOneHeight;
+
+    if (scrollY >= sectionThreeStart && scrollY <= sectionThreeEnd) {
+      //   sectionThreeEl.style.transform = "scale(1)";
+    } else if (scrollY <= sectionThreeStart) {
+      //   sectionThreeEl.style.transform = "scale(5)";
+    } else if (scrollY > sectionTwoEnd) {
+    }
+    // var path = document.querySelector(".path");
+    // var length = path.getTotalLength();
+    // document.documentElement.style.setProperty("--length", length);
+    // path.style.strokeDasharray = length;
+    // path.style.strokeDashoffset = 0; // Start fully drawn
+    // const drawLength = Math.min(length, progress * length);
+    // console.log(drawLength);
+    // path.style.strokeDashoffset = drawLength;
+    // path.style.opacity = opacityValue;
   });
 });
 
@@ -100,13 +140,13 @@ function resetSectionOneStyles(headers, logo, p) {
   p.style.transform = "translateX(0)";
   p.style.opacity = 1;
   logo.style.opacity = 1;
-  logo.style.transform = "scale(1)";
+  logo.style.transform = "rotate(0deg) scale(1)";
 }
 
 function resetSectionTwoStyles(header, paragraph) {
-  header.style.transform = "translateY(0) scale(1)";
-  header.style.opacity = 1;
+  header.style.transform = "translateY(0) scale(0)";
+  header.style.opacity = 0;
 
-  paragraph.style.transform = "translateY(0) scale(1)";
-  paragraph.style.opacity = 1;
+  paragraph.style.transform = "translateY(0) scale(0)";
+  paragraph.style.opacity = 0;
 }
