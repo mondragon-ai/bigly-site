@@ -125,6 +125,11 @@ button {
   border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: "Darker Grotesque", sans-serif;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button:hover {
@@ -210,6 +215,7 @@ button:hover {
   align-items: center;
   border-bottom: 1px solid #292929;
   z-index: 10;
+  height: 90px;
 }
 
 .navbar img {
@@ -236,27 +242,37 @@ nav {
   height: fit-content;
 }
 
+nav path {
+  fill: hsla(0, 0%, 100%, 0.5);
+}
+
 .navbar a {
   color: hsla(0, 0%, 100%, 0.5);
   padding: 0.5rem;
   text-decoration: none;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+.navbar a:hover path {
   /* background-color: #444; */
   color: #fff;
+  fill: #fff !important;
 }
 
 /* Buttons */
 .navbar button {
   height: fit-content;
-  background-color: #007bff;
-  color: #fff;
+  background-color: rgb(231 89 94);
+  color: #1c1c1c;
   padding: 0.25rem 1rem;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  vertical-align: bottom;
+  line-height: 20px;
+  vertical-align: middle;
+  padding-bottom: 0.35rem;
 }
 
 .navbar button:hover {
@@ -270,11 +286,14 @@ main {
   position: relative;
   display: flex;
   flex: 1;
-  max-height: 100vh;
+
+  height: calc(100vh - 90px); /* Subtract navbar height */
+  min-height: calc(100vh - 90px);
+  max-height: calc(100vh - 90px);
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #0056b3;
+  background-color: transparent;
   flex-direction: column;
   overflow-y: scroll;
   scroll-snap-type: y proximity;
@@ -290,10 +309,10 @@ main section {
   font-size: 2rem;
   overflow: hidden; */
 
-  scroll-snap-align: center;
-  height: 100vh;
-  min-height: 100vh;
-  max-height: 100vh;
+  scroll-snap-align: start;
+  height: calc(100vh - 90px); /* Subtract navbar height */
+  min-height: calc(100vh - 90px);
+  max-height: calc(100vh - 90px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -511,15 +530,20 @@ main section {
   z-index: 10;
 }
 
-.sectionThree > div {
-  width: 60%;
+.sectionThree .clientsWrapper {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 .sectionThree > .txt {
   padding: 0 2rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .sectionThree > .txt h1 {
@@ -575,4 +599,229 @@ main section {
   object-fit: cover;
   opacity: 0.3;
   background-color: white;
+}
+
+.clientsWrapper {
+  position: relative;
+}
+
+.clientsWrapper .tilting {
+  padding: 0rem;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+}
+
+.clientsWrapper .tilting img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* @property --angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --z {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+
+@keyframes revolveOne {
+  from {
+    --angle: 30deg;
+    --z: -1;
+  }
+  to {
+    --angle: 390deg;
+    --z: 0;
+  }
+}
+@keyframes revolveTwo {
+  from {
+    --angle: 60deg;
+    --z: -1;
+  }
+  to {
+    --angle: 420deg;
+    --z: 0;
+  }
+}
+@keyframes revolveThree {
+  from {
+    --angle: 90deg;
+    --z: -1;
+  }
+  to {
+    --angle: 450deg;
+    --z: 0;
+  }
+}
+@keyframes revolveFour {
+  from {
+    --angle: 120deg;
+    --z: -1;
+  }
+  to {
+    --angle: 480deg;
+    --z: 0;
+  }
+}
+@keyframes revolveFive {
+  from {
+    --angle: 150deg;
+    --z: -1;
+  }
+  to {
+    --angle: 510deg;
+    --z: 0;
+  }
+}
+@keyframes revolveSix {
+  from {
+    --angle: 180deg;
+    --z: -1;
+  }
+  to {
+    --angle: 540deg;
+    --z: 0;
+  }
+}
+@keyframes revolveSeven {
+  from {
+    --angle: 210deg;
+    --z: -1;
+  }
+  to {
+    --angle: 570deg;
+    --z: 0;
+  }
+}
+
+@keyframes revolveEight {
+  from {
+    --angle: 360deg;
+    --z: -1;
+  }
+  to {
+    --angle: 720deg;
+    --z: 0;
+  }
+}
+
+
+.tilting {
+  --x-amplitude: 150px;
+  --y-amplitude: 200px;
+  --x: calc(cos(var(--angle)) * var(--x-amplitude));
+  --y: calc(sin(var(--angle)) * var(--y-amplitude));
+  translate: var(--x) var(--y);
+  /* z-index: calc(var(--z)); calc() is for Safari 
+  z-index: 5;
+} */
+
+/* 
+--y-amplitude: 200px;
+animation: revolveEight 40s linear infinite;
+*/
+
+@keyframes float {
+  0% {
+    transform: translateY(0); /* Start position */
+  }
+  50% {
+    transform: translateY(-20px); /* Float up */
+  }
+  100% {
+    transform: translateY(0); /* Return to start */
+  }
+}
+
+.tilting img {
+  animation: float 10s ease-in-out infinite;
+}
+
+.tilting:nth-of-type(1) {
+  left: 25%;
+  top: 0%;
+}
+
+.tilting:nth-of-type(2) {
+  left: 55%;
+  top: 145%;
+}
+
+.tilting:nth-of-type(3) {
+  left: 20%;
+  top: 120%;
+}
+
+.tilting:nth-of-type(4) {
+  left: 55%;
+  top: -40%;
+}
+
+.tilting:nth-of-type(5) {
+  left: 70%;
+  top: -10%;
+}
+
+.tilting:nth-of-type(6) {
+  left: 60%;
+  top: 70%;
+}
+
+.tilting:nth-of-type(7) {
+  left: 35%;
+  top: -40%;
+}
+
+.tilting:nth-of-type(8) {
+  left: 40%;
+  top: 110%;
+}
+
+/* Assign random animation delays for different starting times */
+.tilting:nth-of-type(1) img {
+  animation-delay: 0s;
+}
+
+.tilting:nth-of-type(2) img {
+  animation-delay: 1.5s;
+}
+
+.tilting:nth-of-type(3) img {
+  animation-delay: 3s;
+}
+
+.tilting:nth-of-type(4) img {
+  animation-delay: 4.5s;
+}
+
+.tilting:nth-of-type(5) img {
+  animation-delay: 0.75s;
+}
+
+.tilting:nth-of-type(6) img {
+  animation-delay: 2.25s;
+}
+
+.tilting:nth-of-type(7) img {
+  animation-delay: 3.75s;
+}
+
+.tilting:nth-of-type(8) img {
+  animation-delay: 5.25s;
+}
+
+.bigly-logo {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  transform: rotate(9deg);
 }

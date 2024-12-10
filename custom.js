@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionThreeElements = {
     background: document.querySelector(".bkg-three"),
     header: sectionElements.sectionThree.querySelector(".txt"),
+    clients: sectionElements.sectionThree.querySelector(".clientsWrapper"),
   };
 
   // Scroll Event
@@ -139,6 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
         `translateX(${Number(scrollY - sectionTwoStart - 1000) * 0.2}px)`,
         Math.abs(1 - progress),
       );
+
+      setTransformAndOpacity(
+        sectionThreeElements.clients,
+        "none",
+        Math.abs(1 - progress * 0.61),
+      );
     } else if (scrollY < sectionTwoStart - 100) {
       resetStyles(
         [sectionTwoElements.background, sectionThreeElements.background],
@@ -175,13 +182,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const opacityValue = Math.max(0, 1 - sectionThreeProgress * 1.2);
       const scaleValue = Math.max(0.2, 1 - sectionThreeProgress * 1.2);
 
-      //translateX(${translateXValue}px)
-      //   setTransformAndOpacity(
-      //     sectionThreeElements.header,
-      //     `translateX(${scrollY - sectionThreeStart}px)`,
-      //     opacityValue,
-      //   );
+      setTransformAndOpacity(
+        sectionThreeElements.header,
+        `translateX(${0}px)`,
+        1,
+      );
+
+      setTransformAndOpacity(sectionThreeElements.clients, "none", 0.8);
     }
+  });
+
+  const elements = document.querySelectorAll(".tilting");
+  const totalElements = elements.length;
+
+  elements.forEach((element, index) => {
+    // Calculate equally spaced initial angles
+    const initialAngle = (360 / totalElements) * index;
+
+    // Generate random amplitudes and speeds
+    const xAmplitude = Math.random() * 150 + 150; // Random between 150px to 300px
+    const yAmplitude = Math.random() * 150 + 150; // Random between 150px to 300px
+    const orbitSpeed = Math.random() * 20 + 30; // Random between 30s to 50s
+
+    // Set custom properties for each element
+    element.style.setProperty("--x-amplitude", `${xAmplitude}px`);
+    element.style.setProperty("--y-amplitude", `${yAmplitude}px`);
+    element.style.setProperty("--angle", `${initialAngle}deg`);
+    element.style.setProperty("--orbit-speed", `${orbitSpeed}s`);
   });
 });
 
