@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sub: sections.five.querySelector("h4"),
     title: sections.five.querySelector("h1"),
     para: sections.five.querySelectorAll("p"),
+    bkg: sections.five.querySelector("img"),
   };
 
   // Helper Functions
@@ -250,24 +251,24 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
       );
       if (progress > 0.4) {
-        setTransformAndOpacity(
-          sectionFourElements.title,
-          `translateX(${offset - sectionThreeEnd}px)`,
-          Math.abs(progress),
-        );
-        sectionFourElements.para.forEach((header, index) => {
-          const translateX =
-            index === 0
-              ? (offset - sectionThreeEnd) * 2.5
-              : index === 1
-              ? (offset - sectionThreeEnd) * 3.5
-              : (offset - sectionThreeEnd) * 4.5;
-          setTransformAndOpacity(
-            header,
-            `translateX(${translateX}px)`,
-            Math.abs(progress),
-          );
-        });
+        // setTransformAndOpacity(
+        //   sectionFourElements.title,
+        //   `translateX(${offset - sectionThreeEnd}px)`,
+        //   Math.abs(progress),
+        // );
+        // sectionFourElements.para.forEach((header, index) => {
+        //   const translateX =
+        //     index === 0
+        //       ? (offset - sectionThreeEnd) * 2.5
+        //       : index === 1
+        //       ? (offset - sectionThreeEnd) * 3.5
+        //       : (offset - sectionThreeEnd) * 4.5;
+        //   setTransformAndOpacity(
+        //     header,
+        //     `translateX(${translateX}px)`,
+        //     Math.abs(progress),
+        //   );
+        // });
       }
     } else if (scrollY > sectionThreeEnd) {
       resetStyles(
@@ -275,15 +276,15 @@ document.addEventListener("DOMContentLoaded", () => {
           sectionThreeElements.background,
           sectionThreeElements.header,
           sectionThreeElements.clients,
-          sections.four,
-          sectionFourElements.title,
+          //   sections.four,
+          //   sectionFourElements.title,
         ],
         [
           {transform: "none", opacity: "0"},
           {transform: "none", opacity: "0"},
           {transform: "none", opacity: "0"},
-          {transform: "none", opacity: "1"},
-          {transform: "none", opacity: "1"},
+          //   {transform: "none", opacity: "1"},
+          //   {transform: "none", opacity: "1"},
         ],
       );
 
@@ -300,66 +301,73 @@ document.addEventListener("DOMContentLoaded", () => {
       const progress =
         (scrollY - sectionFourStart) / (sectionFourEnd - sectionFourStart);
 
-      resetStyles(
-        [sectionFourElements.title],
-        [{transform: "none", opacity: "1"}],
-      );
+      //   resetStyles(
+      //     [sectionFourElements.title],
+      //     [{transform: "none", opacity: "1"}],
+      //   );
 
-      sectionFourElements.para.forEach((header, index) => {
-        resetStyles([header], [{transform: "none", opacity: "1"}]);
-      });
+      //   sectionFourElements.para.forEach((header, index) => {
+      //     resetStyles([header], [{transform: "none", opacity: "1"}]);
+      //   });
 
-      //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
-      if (progress > 0.1) {
-        // Slide out Section Four
-        setTransformAndOpacity(
-          sections.four,
-          `translateX(${progress * -100}%)`,
-          Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
-        );
-        // Slide in Section Five
-        setTransformAndOpacity(
-          sections.five,
-          `translateX(${(1 - progress) * 100}%)`,
-          Math.min(1, progress * 1.2),
-        );
-      } else {
-        resetStyles([sections.four], [{transform: "none", opacity: "1"}]);
-      }
+      //   //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
+      //   if (progress > 0.1) {
+      //     // Slide out Section Four
+      //     setTransformAndOpacity(
+      //       sections.four,
+      //       `translateX(${progress * -100}%)`,
+      //       Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
+      //     );
+      //     // Slide in Section Five
+      //     setTransformAndOpacity(
+      //       sections.five,
+      //       `translateX(${(1 - progress) * 100}%)`,
+      //       Math.min(1, progress * 1.2),
+      //     );
+      //   } else {
+      //     resetStyles([sections.four], [{transform: "none", opacity: "1"}]);
+      //   }
 
-      if (progress > 0.5) {
-        setTransformAndOpacity(
-          sectionFiveElements.title,
-          `translateX(${offset - sectionFourEnd}px)`,
-          Math.abs(progress),
-        );
+      //   if (progress > 0.5) {
+      //     setTransformAndOpacity(
+      //       sectionFiveElements.title,
+      //       `translateX(${offset - sectionFourEnd}px)`,
+      //       Math.abs(progress),
+      //     );
 
-        sectionFiveElements.para.forEach((header, index) => {
-          const translateX =
-            index === 0
-              ? (offset - sectionFourEnd) * 2.5
-              : index === 1
-              ? (offset - sectionFourEnd) * 3.5
-              : (offset - sectionFourEnd) * 4.5;
-          setTransformAndOpacity(
-            header,
-            `translateX(${translateX}px)`,
-            Math.abs(progress),
-          );
-        });
-      }
+      //     const translateYValue = Math.max(0, 100 - progress * 100) - 100;
+      //     setTransformAndOpacity(
+      //       sectionFiveElements.bkg,
+      //       `translateY(${(1 - progress) * -100}%)`,
+      //       Math.abs(progress),
+      //     );
 
-      if (progress > 0.95) {
-        sections.five.style.background = "black";
-        resetStyles(
-          [sectionFiveElements.title],
-          [{transform: "none", opacity: "1"}],
-        );
+      //     sectionFiveElements.para.forEach((header, index) => {
+      //       const translateX =
+      //         index === 0
+      //           ? (offset - sectionFourEnd) * 2.5
+      //           : index === 1
+      //           ? (offset - sectionFourEnd) * 3.5
+      //           : (offset - sectionFourEnd) * 4.5;
+      //       setTransformAndOpacity(
+      //         header,
+      //         `translateX(${translateX}px)`,
+      //         Math.abs(progress),
+      //       );
+      //     });
+      //   }
 
-        sectionFiveElements.para.forEach((header, index) => {
-          resetStyles([header], [{transform: "none", opacity: "1"}]);
-        });
-      }
+      //   if (progress > 0.95) {
+      //     sections.five.style.background = "black";
+      //     resetStyles(
+      //       [sectionFiveElements.title],
+      //       [{transform: "none", opacity: "1"}],
+      //     );
+
+      //     sectionFiveElements.para.forEach((header, index) => {
+      //       resetStyles([header], [{transform: "none", opacity: "1"}]);
+      //     });
+      //   }
     } else {
       //   resetStyles(
       //     [sections.four, sections.five],
@@ -370,10 +378,77 @@ document.addEventListener("DOMContentLoaded", () => {
       //   );
     }
 
-    // Ensure Section Five remains fixed once fully visible
-    if (scrollY > sectionFourEnd) {
-      sections.five.style.transform = "translateX(0)";
-      sections.five.style.position = "sticky";
-    }
+    // // Ensure Section Five remains fixed once fully visible
+    // if (scrollY > sectionFourEnd) {
+    //   sections.five.style.transform = "translateX(0)";
+    //   sections.five.style.position = "sticky";
+
+    //   const progress =
+    //     (scrollY - sectionFourStart) / (sectionFourEnd - sectionFourStart);
+
+    //   //   resetStyles(
+    //   //     [sectionFiveElements.title],
+    //   //     [{transform: "none", opacity: "1"}],
+    //   //   );
+
+    //   //   sectionFiveElements.para.forEach((header, index) => {
+    //   //     resetStyles([header], [{transform: "none", opacity: "1"}]);
+    //   //   });
+
+    //   //   //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
+    //   //   if (progress > 0.1) {
+    //   //     // Slide out Section Five
+    //   //     setTransformAndOpacity(
+    //   //       sections.five,
+    //   //       `translateX(${progress * -100}%)`,
+    //   //       Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
+    //   //     );
+
+    //   //     // Slide in Section Six
+    //   //     setTransformAndOpacity(
+    //   //       sections.five,
+    //   //       `translateX(${(1 - progress) * 100}%)`,
+    //   //       Math.min(1, progress * 1.2),
+    //   //     );
+    //   //   } else {
+    //   //     resetStyles([sections.five], [{transform: "none", opacity: "1"}]);
+    //   //   }
+
+    //   if (progress > 0.5) {
+    //     // setTransformAndOpacity(
+    //     //   sectionFiveElements.title,
+    //     //   `translateX(${offset - sectionFourEnd}px)`,
+    //     //   Math.abs(progress),
+    //     // );
+    //     // setTransformAndOpacity(
+    //     //   sectionFiveElements.bkg,
+    //     //   `translateY(${(1 - progress) * -100}%)`,
+    //     //   Math.abs(progress),
+    //     // );
+    //     // sectionFiveElements.para.forEach((header, index) => {
+    //     //   const translateX =
+    //     //     index === 0
+    //     //       ? (offset - sectionFourEnd) * 2.5
+    //     //       : index === 1
+    //     //       ? (offset - sectionFourEnd) * 3.5
+    //     //       : (offset - sectionFourEnd) * 4.5;
+    //     //   setTransformAndOpacity(
+    //     //     header,
+    //     //     `translateX(${translateX}px)`,
+    //     //     Math.abs(progress),
+    //     //   );
+    //     // });
+    //   }
+
+    //   if (progress > 0.95) {
+    //     // resetStyles(
+    //     //   [sectionFiveElements.title],
+    //     //   [{transform: "none", opacity: "1"}],
+    //     // );
+    //     // sectionFiveElements.para.forEach((header, index) => {
+    //     //   resetStyles([header], [{transform: "none", opacity: "1"}]);
+    //     // });
+    //   }
+    // }
   });
 });

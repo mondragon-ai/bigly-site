@@ -363,7 +363,7 @@ main section {
   color: white;
   font-size: 2rem;
   overflow: hidden;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 
   /* padding: 20px; */
   /* box-sizing: border-box; */
@@ -771,7 +771,9 @@ main section {
 /* ! SECTION: SERVICES                                                                                                                              */
 /* ================================================================================================================================================ */
 .sectionFour,
-.sectionFive {
+.sectionFive,
+.sectionSix,
+.sectionSeven {
   background: transparent;
   position: sticky;
   top: 0;
@@ -813,12 +815,14 @@ main section {
   transition: transform 0s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
 } */
 
-.sectionFive {
+/* .sectionFive {
   transform: translateX(-100%);
-}
+} */
 
 .sectionFour > div,
-.sectionFive > div {
+.sectionFive > div,
+.sectionSix > div,
+.sectionSeven > div {
   top: 0;
   padding: 0;
   margin: 0;
@@ -833,7 +837,9 @@ main section {
 }
 
 .sectionFour > div > .services,
-.sectionFive > div > .services {
+.sectionFive > div > .services,
+.sectionSix > div > .services,
+.sectionSeven > div > .services {
   position: absolute;
   top: 0%;
   right: 10px;
@@ -847,7 +853,9 @@ main section {
 }
 
 .sectionFour > div > .services > a,
-.sectionFive > div > .services > a {
+.sectionFive > div > .services > a,
+.sectionSix > div > .services > a,
+.sectionSeven > div > .services > a {
   background-color: #1a1919;
   padding: 4.5rem;
   height: 100%;
@@ -857,10 +865,13 @@ main section {
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .sectionFour > div > .services > a span,
-.sectionFive > div > .services > a span {
+.sectionFive > div > .services > a span,
+.sectionSix > div > .services > a span,
+.sectionSeven > div > .services > a span {
   writing-mode: vertical-lr;
   width: 70px;
   position: absolute;
@@ -875,7 +886,9 @@ main section {
 }
 
 .sectionFour > div > .serviceWrapper,
-.sectionFive > div > .serviceWrapper {
+.sectionFive > div > .serviceWrapper,
+.sectionSix > div > .serviceWrapper,
+.sectionSeven > div > .serviceWrapper {
   position: absolute;
   top: 0%;
   flex: 1;
@@ -893,30 +906,39 @@ main section {
 }
 
 .sectionFour > div > .serviceWrapper h4,
-.sectionFive > div > .serviceWrapper h4 {
+.sectionFive > div > .serviceWrapper h4,
+.sectionSix > div > .serviceWrapper h4,
+.sectionSeven > div > .serviceWrapper h4 {
   font-weight: 400;
   font-size: 40px;
   line-height: 45px;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
+  z-index: 3;
 }
 
 .sectionFour > div > .serviceWrapper h1,
-.sectionFive > div > .serviceWrapper h1 {
+.sectionFive > div > .serviceWrapper h1,
+.sectionSix > div > .serviceWrapper h1,
+.sectionSeven > div > .serviceWrapper h1 {
   font-weight: 400;
   font-size: 80px;
   line-height: 85px;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
   color: #1a1919;
+  z-index: 3;
 }
 
 .sectionFour > div > .serviceWrapper p,
-.sectionFive > div > .serviceWrapper p {
+.sectionFive > div > .serviceWrapper p,
+.sectionSix > div > .serviceWrapper p,
+.sectionSeven > div > .serviceWrapper p {
   font-weight: 600;
   font-size: 30px;
   line-height: 35px;
   color: rgb(10, 10, 10);
+  z-index: 3;
 }
 
 .custom-div {
@@ -965,4 +987,106 @@ main section {
   left: 0px;
   right: 0;
   width: 100%;
+}
+
+.slide-five-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+/* ================================================================================================================================================ */
+/* ! SECTION EIGHT                                                                                                                                  */
+/* ================================================================================================================================================ */
+
+.sectionEight {
+  background: transparent;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.sectionEight .txt {
+  padding: 2rem;
+}
+
+.sectionEight .txt h1 {
+  font-weight: 900;
+  font-size: 215px;
+  line-height: 225px;
+  color: #f9f9f9;
+  font-family: "Anton SC", sans-serif;
+  text-transform: uppercase;
+}
+
+.sectionEight .txt h4 {
+  -webkit-text-stroke: 2px rgb(253, 253, 253);
+  color: transparent;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-variation-settings: normal;
+  font-weight: 500;
+  font-size: 115px;
+  line-height: 125px;
+  left: 55px;
+  top: 45%;
+  z-index: 10;
+  font-family: "Anton SC", sans-serif;
+}
+
+.sectionEight .txt a {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 44px;
+  background-color: #f0f0f0;
+  color: #525252;
+  padding: 15px 30px;
+  border-radius: 5px;
+  margin-top: 1rem;
+  animation: transform 0.3s ease;
+}
+
+.sectionEight .txt a:hover {
+  background-color: #e55454;
+  color: #f0f0f0;
+  box-shadow: 10px 10px #000;
+}
+
+.sectionEight footer {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+}
+
+.sectionEight footer a,
+.sectionEight footer span {
+  color: hsla(0, 0%, 100%, 0.5);
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.sectionEight a {
+  cursor: pointer;
 }
