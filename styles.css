@@ -211,22 +211,7 @@ button:hover {
 
 /** Animation */
 /** ================================================================================================================================================ */
-.an-right {
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-}
 
-.fast {
-  transition: transform 0.2s ease;
-}
-
-.slow {
-  transition: transform 0.5s ease;
-}
-
-.fade {
-  transition: opacity 0.3s ease;
-}
 .ease-animation {
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
