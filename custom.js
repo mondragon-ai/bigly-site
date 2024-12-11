@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     two: document.querySelector(".sectionTwo"),
     three: document.querySelector(".sectionThree"),
     four: document.querySelector(".sectionFour"),
+    five: document.querySelector(".sectionFive"),
   };
 
   const sectionOneElements = {
@@ -39,6 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     para: sections.four.querySelectorAll("p"),
   };
 
+  const sectionFiveElements = {
+    mkt: sections.five.querySelector("#marketing"),
+    sub: sections.five.querySelector("h4"),
+    title: sections.five.querySelector("h1"),
+    para: sections.five.querySelectorAll("p"),
+  };
+
   // Helper Functions
   const setTransformAndOpacity = (element, transform, opacity) => {
     element.style.transform = transform;
@@ -52,6 +60,22 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   };
+
+  //   const applyStyles = (element, styles) => {
+  //     Object.entries(styles).forEach(([property, value]) => {
+  //       if (element) element.style[property] = value;
+  //     });
+  //   };
+
+  //   const setOpacityAndTransform = (element, opacity, transform = "none") => {
+  //     applyStyles(element, { opacity, transform });
+  //   };
+
+  //   const calculateScrollProgress = (scrollTop, start, end) => {
+  //     if (scrollTop < start) return 0;
+  //     if (scrollTop > end) return 1;
+  //     return (scrollTop - start) / (end - start);
+  //   };
 
   // Scroll Event
   mainElement.addEventListener("scroll", () => {
@@ -68,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
       //   const progress = scrollY / sectionOneHeight;
       //   const opacity = Math.max(0, (1 - progress) * 2);
 
-      console.log({progress, opacity, offset, scrollY});
       sectionOneElements.headers.forEach((header, index) => {
         const translateX = index === 0 ? offset * 2.5 : offset;
         const transform =
@@ -76,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ? `rotate(350deg) translateY(-45%) translateX(${translateX}px)`
             : `translateX(${translateX}px)`;
 
-        console.log({indextransform});
         setTransformAndOpacity(header, transform, opacity);
       });
 
@@ -212,18 +234,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Section Three Logic
     if (scrollY >= sectionThreeStart && scrollY <= sectionThreeEnd) {
       const progress = scrollY / sectionThreeEnd;
-      console.log(progress);
 
       resetStyles(
         [
           sectionThreeElements.background,
           sectionThreeElements.header,
           sectionThreeElements.clients,
+          sections.three,
         ],
         [
           {transform: "scale(1)", opacity: "1"},
           {transform: "translateX(0px)", opacity: "1"},
           {transform: "none", opacity: "0.8"},
+          {transform: "none", opacity: "1"},
         ],
       );
       if (progress > 0.4) {
@@ -232,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
           `translateX(${offset - sectionThreeEnd}px)`,
           Math.abs(progress),
         );
-
         sectionFourElements.para.forEach((header, index) => {
           const translateX =
             index === 0
@@ -249,9 +271,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else if (scrollY > sectionThreeEnd) {
       resetStyles(
-        [sectionThreeElements.background],
-        [{transform: "none", opacity: "0"}],
+        [
+          sectionThreeElements.background,
+          sectionThreeElements.header,
+          sectionThreeElements.clients,
+          sections.four,
+          sectionFourElements.title,
+        ],
+        [
+          {transform: "none", opacity: "0"},
+          {transform: "none", opacity: "0"},
+          {transform: "none", opacity: "0"},
+          {transform: "none", opacity: "1"},
+          {transform: "none", opacity: "1"},
+        ],
       );
+
+      sectionFourElements.para.forEach((header, index) => {
+        resetStyles([header], [{transform: "none", opacity: "1"}]);
+      });
     }
 
     const sectionFourStart = sectionOneHeight * 3;
@@ -259,6 +297,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Section Four Logic
     if (scrollY >= sectionFourStart && scrollY <= sectionFourEnd) {
+      const progress =
+        (scrollY - sectionFourStart) / (sectionFourEnd - sectionFourStart);
+
       resetStyles(
         [sectionFourElements.title],
         [{transform: "none", opacity: "1"}],
@@ -267,6 +308,72 @@ document.addEventListener("DOMContentLoaded", () => {
       sectionFourElements.para.forEach((header, index) => {
         resetStyles([header], [{transform: "none", opacity: "1"}]);
       });
+
+      //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
+      if (progress > 0.1) {
+        // Slide out Section Four
+        setTransformAndOpacity(
+          sections.four,
+          `translateX(${progress * -100}%)`,
+          Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
+        );
+        // Slide in Section Five
+        setTransformAndOpacity(
+          sections.five,
+          `translateX(${(1 - progress) * 100}%)`,
+          Math.min(1, progress * 1.2),
+        );
+      } else {
+        resetStyles([sections.four], [{transform: "none", opacity: "1"}]);
+      }
+
+      if (progress > 0.5) {
+        setTransformAndOpacity(
+          sectionFiveElements.title,
+          `translateX(${offset - sectionFourEnd}px)`,
+          Math.abs(progress),
+        );
+
+        sectionFiveElements.para.forEach((header, index) => {
+          const translateX =
+            index === 0
+              ? (offset - sectionFourEnd) * 2.5
+              : index === 1
+              ? (offset - sectionFourEnd) * 3.5
+              : (offset - sectionFourEnd) * 4.5;
+          setTransformAndOpacity(
+            header,
+            `translateX(${translateX}px)`,
+            Math.abs(progress),
+          );
+        });
+      }
+
+      if (progress > 0.95) {
+        sections.five.style.background = "black";
+        resetStyles(
+          [sectionFiveElements.title],
+          [{transform: "none", opacity: "1"}],
+        );
+
+        sectionFiveElements.para.forEach((header, index) => {
+          resetStyles([header], [{transform: "none", opacity: "1"}]);
+        });
+      }
+    } else {
+      //   resetStyles(
+      //     [sections.four, sections.five],
+      //     [
+      //       {transform: "none", opacity: "1"},
+      //       {transform: "none", opacity: "0"},
+      //     ],
+      //   );
+    }
+
+    // Ensure Section Five remains fixed once fully visible
+    if (scrollY > sectionFourEnd) {
+      sections.five.style.transform = "translateX(0)";
+      sections.five.style.position = "sticky";
     }
   });
 });

@@ -3,33 +3,55 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 0.5px solid green;
+  /* border: 0.5px solid green; */
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgb(229, 229, 229);
+  z-index: 100;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e71d36;
+  border-radius: 0px;
+  z-index: 100;
 }
 
 /* Base Styles */
 html {
-  font-size: 16px; /* Default font size */
+  font-size: 16px;
   line-height: 0;
   padding: 0;
   margin: 0;
-  height: fit-content;
+  height: 100vh;
   background: red;
   height: 100vh;
-  overflow: visible;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9; /* Light gray background */
-  color: #333; /* Dark text */
+  background-color: #f9f9f9;
+  color: #333;
   position: relative;
   display: flex;
   min-height: 100vh;
   max-height: 100vh;
   flex-direction: column;
   height: fit-content;
-  overflow: visible;
+  overflow: hidden;
+
+  /* margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden; */
 }
 
 /* Typography */
@@ -47,9 +69,9 @@ li,
 strong {
   margin: 0 0 0rem 0;
   font-weight: 600;
-  font-size: 16px; /* Default font size */
+  font-size: 16px;
   line-height: 18px;
-  color: #222; /* Darker heading color */
+  color: #222;
   font-family: "Darker Grotesque", sans-serif;
 }
 
@@ -66,13 +88,13 @@ p {
 
 /* Links */
 a {
-  color: #007bff; /* Primary link color */
+  color: #007bff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #0056b3; /* Darker shade on hover */
+  color: #0056b3;
 }
 
 /* Images */
@@ -111,13 +133,13 @@ img {
 /* Responsive Typography */
 @media (min-width: 768px) {
   html {
-    font-size: 18px; /* Larger font size on tablets/desktops */
+    font-size: 18px;
   }
 }
 
 @media (max-width: 767px) {
   html {
-    font-size: 14px; /* Smaller font size on mobile */
+    font-size: 14px;
   }
 }
 
@@ -222,8 +244,21 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #292929;
-  z-index: 10;
+  z-index: 15;
   height: 70px;
+  max-height: 70px;
+
+  position: fixed;
+  /* top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #333;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: #fff; */
 }
 
 .navbar img {
@@ -294,39 +329,44 @@ main {
   position: relative;
   display: flex;
   flex: 1;
-
-  height: calc(100vh - 70px); /* Subtract navbar height */
+  /* height: calc(100vh - 70px);
   min-height: calc(100vh - 70px);
-  max-height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px); */
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: transparent;
   flex-direction: column;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  /*
+  scroll-snap-type: y mandatory; */
+
+  scroll-padding-top: 70px;
+  margin-top: 0px; /* Offset for the navbar */
+  /* height: calc(100vh - 70px); */
   scroll-snap-type: y proximity;
+  overflow-y: scroll;
 }
 
 main section {
-  /* scroll-snap-align: start;
+  scroll-snap-align: center;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 2rem;
-  overflow: hidden; */
-
-  scroll-snap-align: start;
-  height: calc(100vh - 70px); /* Subtract navbar height */
-  min-height: calc(100vh - 70px);
-  max-height: calc(100vh - 70px);
+  min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-size: 2rem;
   overflow: hidden;
+  border: 1px solid green;
+
+  /* padding: 20px; */
+  /* box-sizing: border-box; */
 }
 
 /* ================================================================================================================================================ */
@@ -471,7 +511,6 @@ main section {
   right: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
   background: transparent;
   display: flex;
   flex-direction: row;
@@ -596,12 +635,13 @@ main section {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 17px); /* Leave room for the scrollbar */
   height: 100%;
-  z-index: 5;
+  z-index: 5; /* Lower than the browser's UI or scrollbar */
   pointer-events: none;
   opacity: 0;
   background: #f3f3f3;
+  overflow: hidden;
 }
 
 #topography {
@@ -629,117 +669,6 @@ main section {
   height: auto;
   object-fit: contain;
 }
-
-/* @property --angle {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0deg;
-}
-
-@property --z {
-  syntax: "<integer>";
-  inherits: true;
-  initial-value: 0;
-}
-
-
-@keyframes revolveOne {
-  from {
-    --angle: 30deg;
-    --z: -1;
-  }
-  to {
-    --angle: 390deg;
-    --z: 0;
-  }
-}
-@keyframes revolveTwo {
-  from {
-    --angle: 60deg;
-    --z: -1;
-  }
-  to {
-    --angle: 420deg;
-    --z: 0;
-  }
-}
-@keyframes revolveThree {
-  from {
-    --angle: 90deg;
-    --z: -1;
-  }
-  to {
-    --angle: 450deg;
-    --z: 0;
-  }
-}
-@keyframes revolveFour {
-  from {
-    --angle: 120deg;
-    --z: -1;
-  }
-  to {
-    --angle: 480deg;
-    --z: 0;
-  }
-}
-@keyframes revolveFive {
-  from {
-    --angle: 150deg;
-    --z: -1;
-  }
-  to {
-    --angle: 510deg;
-    --z: 0;
-  }
-}
-@keyframes revolveSix {
-  from {
-    --angle: 180deg;
-    --z: -1;
-  }
-  to {
-    --angle: 540deg;
-    --z: 0;
-  }
-}
-@keyframes revolveSeven {
-  from {
-    --angle: 210deg;
-    --z: -1;
-  }
-  to {
-    --angle: 570deg;
-    --z: 0;
-  }
-}
-
-@keyframes revolveEight {
-  from {
-    --angle: 360deg;
-    --z: -1;
-  }
-  to {
-    --angle: 720deg;
-    --z: 0;
-  }
-}
-
-
-.tilting {
-  --x-amplitude: 150px;
-  --y-amplitude: 200px;
-  --x: calc(cos(var(--angle)) * var(--x-amplitude));
-  --y: calc(sin(var(--angle)) * var(--y-amplitude));
-  translate: var(--x) var(--y);
-  /* z-index: calc(var(--z)); calc() is for Safari 
-  z-index: 5;
-} */
-
-/* 
---y-amplitude: 200px;
-animation: revolveEight 40s linear infinite;
-*/
 
 @keyframes float {
   0% {
@@ -839,9 +768,10 @@ animation: revolveEight 40s linear infinite;
 }
 
 /* ================================================================================================================================================ */
-/* ! SECTION FOUR                                                                                                                                  */
+/* ! SECTION: SERVICES                                                                                                                              */
 /* ================================================================================================================================================ */
-.sectionFour {
+.sectionFour,
+.sectionFive {
   background: transparent;
   position: sticky;
   top: 0;
@@ -849,11 +779,46 @@ animation: revolveEight 40s linear infinite;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  overflow: visible;
+  overflow: hidden;
   z-index: 10;
+  background: black;
+  /* transition: transform 0.5s ease, opacity 0.5s ease; */
 }
 
-.sectionFour > div {
+/* #ecom {
+  transform: translateX(0);
+}
+ */
+
+/* .sectionFive {
+  transform: translateX(-100%);
+} */
+
+.serviceWrapper {
+  overflow: hidden;
+}
+
+/* .sectionFour {
+  position: sticky;
+  top: 0;
+  transform: translateX(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.sectionFive {
+  position: sticky;
+  top: 0;
+  opacity: 0;
+  transform: translateX(25%) translateY(-100%);
+  transition: transform 0s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+} */
+
+.sectionFive {
+  transform: translateX(-100%);
+}
+
+.sectionFour > div,
+.sectionFive > div {
   top: 0;
   padding: 0;
   margin: 0;
@@ -863,11 +828,12 @@ animation: revolveEight 40s linear infinite;
   flex-direction: row;
   align-items: center;
   position: absolute;
-  background: black;
+  background: transparent;
   justify-content: space-between;
 }
 
-.sectionFour > div > .services {
+.sectionFour > div > .services,
+.sectionFive > div > .services {
   position: absolute;
   top: 0%;
   right: 10px;
@@ -880,7 +846,8 @@ animation: revolveEight 40s linear infinite;
   height: 98%;
 }
 
-.sectionFour > div > .services > a {
+.sectionFour > div > .services > a,
+.sectionFive > div > .services > a {
   background-color: #1a1919;
   padding: 4.5rem;
   height: 100%;
@@ -892,7 +859,8 @@ animation: revolveEight 40s linear infinite;
   margin-left: 10px;
 }
 
-.sectionFour > div > .services > a span {
+.sectionFour > div > .services > a span,
+.sectionFive > div > .services > a span {
   writing-mode: vertical-lr;
   width: 70px;
   position: absolute;
@@ -906,7 +874,8 @@ animation: revolveEight 40s linear infinite;
   font-family: "Darker Grotesque", sans-serif;
 }
 
-.sectionFour > div > .serviceWrapper {
+.sectionFour > div > .serviceWrapper,
+.sectionFive > div > .serviceWrapper {
   position: absolute;
   top: 0%;
   flex: 1;
@@ -923,26 +892,29 @@ animation: revolveEight 40s linear infinite;
   background-color: #ff444d;
 }
 
-.sectionFour > div > .serviceWrapper h4 {
+.sectionFour > div > .serviceWrapper h4,
+.sectionFive > div > .serviceWrapper h4 {
   font-weight: 400;
-  font-size: 40px; /* Default font size */
+  font-size: 40px;
   line-height: 45px;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
 }
 
-.sectionFour > div > .serviceWrapper h1 {
+.sectionFour > div > .serviceWrapper h1,
+.sectionFive > div > .serviceWrapper h1 {
   font-weight: 400;
-  font-size: 80px; /* Default font size */
+  font-size: 80px;
   line-height: 85px;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
   color: #1a1919;
 }
 
-.sectionFour > div > .serviceWrapper p {
+.sectionFour > div > .serviceWrapper p,
+.sectionFive > div > .serviceWrapper p {
   font-weight: 600;
-  font-size: 30px; /* Default font size */
+  font-size: 30px;
   line-height: 35px;
   color: rgb(10, 10, 10);
 }
