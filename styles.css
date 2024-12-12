@@ -105,12 +105,12 @@ img {
 }
 
 /* Responsive Grid */
-.container {
+/* .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-}
+} */
 
 /* Utility Classes */
 .text-center {
@@ -314,9 +314,6 @@ main {
   position: relative;
   display: flex;
   flex: 1;
-  /* height: calc(100vh - 70px);
-  min-height: calc(100vh - 70px);
-  max-height: calc(100vh - 70px); */
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
@@ -325,16 +322,12 @@ main {
   padding: 0;
   background-color: transparent;
   flex-direction: column;
-  /* overflow-y: scroll; */
-  overflow-x: hidden;
-  /*
-  scroll-snap-type: y mandatory; */
-
   scroll-padding-top: 70px;
-  margin-top: 0px; /* Offset for the navbar */
-  /* height: calc(100vh - 70px); */
-  scroll-snap-type: y proximity;
+  margin-top: 0px;
+  overflow: hidden;
   overflow-y: scroll;
+  overscroll-behavior: none;
+  scroll-snap-type: y proximity;
 }
 
 main section {
@@ -348,10 +341,6 @@ main section {
   color: white;
   font-size: 2rem;
   overflow: hidden;
-  /* border: 1px solid green; */
-
-  /* padding: 20px; */
-  /* box-sizing: border-box; */
 }
 
 /* ================================================================================================================================================ */
@@ -769,7 +758,10 @@ main section {
   overflow: hidden;
   z-index: 10;
   background: black;
-  /* transition: transform 0.5s ease, opacity 0.5s ease; */
+
+  min-height: 100vh;
+  width: calc(100vw - 10px);
+  min-width: 100%;
 }
 
 /* #ecom {
