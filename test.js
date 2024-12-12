@@ -1,9 +1,9 @@
 // Get Elements
 const setupElements = (section) => ({
-  h1: section.querySelectorAll(".txt h1") || null,
-  h4: section.querySelectorAll(".txt h4") || null,
+  h1: section.querySelectorAll("h1") || null,
+  h4: section.querySelectorAll(" h4") || null,
   txt: section.querySelector(".txt") || null,
-  p: section.querySelectorAll(".txt p") || null,
+  p: section.querySelectorAll("p") || null,
   bkg: section.querySelector(".bkg") || null,
   image: section.querySelector("div > img") || null,
 });
@@ -12,15 +12,15 @@ const setupElements = (section) => ({
 const resetSections = (section = null) => {
   const sections = document.querySelectorAll("main section");
   sections.forEach((s) => {
-    s.style.opacity = "0";
+    s.style.opacity = 0;
   });
   if (section) {
-    section.style.opacity = "1";
+    section.style.opacity = 1;
   } else {
     const sectionHeight = getHeight(sections[0]);
     const scroll = window.scrollY;
-    const i = Math.round(scroll / sectionHeight);
-    sections[i].style.opacity = "1";
+    const i = Math.round(sectionHeight / (scroll > 0 ? scroll : 1));
+    // sections[i].style.opacity = "1";
   }
 };
 
@@ -63,10 +63,10 @@ const translate = (progress, direction = "top-to-bottom", multiplier = 1) => {
 
   switch (direction) {
     case "top-to-bottom":
-      value = (1 - progress) * -100 * multiplier;
+      value = progress * -100 * multiplier;
       break;
     case "bottom-to-top":
-      value = progress * 100 * multiplier;
+      value = (1 - progress) * 100 * multiplier;
       break;
     case "left-to-right":
       value = progress * 100 * multiplier;
@@ -81,7 +81,6 @@ const translate = (progress, direction = "top-to-bottom", multiplier = 1) => {
   return Number(value.toFixed(2));
 };
 
-// Example Usage
 // Translate Y in PX (Top to Bottom)
 const translateY = (progress, direction = "top-to-bottom", multiplier = 1) => {
   return translate(progress, direction, multiplier);
@@ -97,24 +96,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // Get Sections
   const sections = document.querySelectorAll("main section");
-  resetSections();
+
+  window.addEventListener("load", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    setTimeout(() => resetSections(sections[0]), 500);
+  });
 
   // Set Scrollable Height
   const sectionHeight = getHeight(sections[0]);
-  mainElement.style.paddingBottom = `${
-    sectionHeight * (sections.length - 1)
-  }px`;
+  mainElement.style.paddingBottom = `${sectionHeight * sections.length}px`;
 
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
 
     handleSectionOne(scrollY, sectionHeight, sections[0], sections[1]);
     handleSectionTwo(scrollY, sectionHeight, sections[1], sections[2]);
+    handleSectionThree(scrollY, sectionHeight, sections[2], sections[3]);
+    handleServiceSections(scrollY, sectionHeight, sections[3], sections[4], 0);
+    handleServiceSections(scrollY, sectionHeight, sections[4], sections[5], 1);
+    handleServiceSections(scrollY, sectionHeight, sections[5], sections[6], 2);
+    handleApplySection(scrollY, sectionHeight, sections[6], sections[7]);
   });
 });
 
 const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
-  resetSections(current);
   const oneTop = sectionHeight * 0;
   const oneBottom = sectionHeight * 1;
   if (scrollY > oneTop && scrollY < oneBottom) {
@@ -169,8 +177,18 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
       });
     }
 
+    const prev = setupElements(next);
     if (progress > 0.8) {
       setOpacityAndTransform(next, progress * 0.4);
+
+      setOpacityAndTransform(
+        prev.h1[0],
+        progress * 0.4,
+        `translateY(${(1 - progress) * -100}%)`,
+      );
+      if (progress > 0.9) {
+        setOpacityAndTransform(next, progress * 0.85);
+      }
     } else {
       applyStyles(next, {
         opacity: 0,
@@ -181,7 +199,6 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
 };
 
 const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
-  resetSections(current);
   const oneTop = sectionHeight * 1;
   const oneBottom = sectionHeight * 2;
   if (scrollY >= oneTop && scrollY < oneBottom) {
@@ -203,8 +220,13 @@ const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
     } else {
       applyStyles(section, {
         opacity: 1,
+        transform: "none",
       });
       applyStyles(elements.txt, {
+        opacity: 1,
+        transform: "none",
+      });
+      applyStyles(elements.image, {
         opacity: 1,
         transform: "none",
       });
@@ -218,5 +240,109 @@ const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
         transform: "none",
       });
     }
+  }
+};
+
+let isXReset = true;
+const handleSectionThree = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 2;
+  const oneBottom = sectionHeight * 3;
+
+  if (scrollY >= oneTop && scrollY < oneBottom) {
+    document.querySelector(".sectionThree").style.opacity = 1;
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+
+    if (isXReset) {
+      setOpacityAndTransform(
+        next,
+        1,
+        `translateX(0%) translateY(${(1 - progress) * 100}%)`,
+      );
+    }
+  } else {
+    setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
+  }
+};
+
+let isApplyXReset = true;
+const handleServiceSections = (scrollY, sectionHeight, section, next, step) => {
+  const oneTop = sectionHeight * (3 + step);
+  const oneBottom = sectionHeight * (4 + step);
+
+  if (scrollY >= oneTop && scrollY < oneBottom) {
+    document.querySelector(".sectionThree").style.opacity = 0;
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    const opacity = calculateFadeOut(scrollY, oneBottom, 0.9);
+
+    const curr = setupElements(section);
+    curr.p.forEach((para) => {
+      setOpacityAndTransform(para, 1, `translateX(0px)`);
+    });
+    setOpacityAndTransform(curr.h1[0], 1, "translateX(0px)");
+    if (progress > 0.4) {
+      isXReset = false;
+
+      setOpacityAndTransform(
+        section,
+        opacity,
+        `translateX(${((progress - 0.4) * -100) / 0.6}%) translateY(0%)`,
+      );
+      setOpacityAndTransform(
+        next,
+        progress * 0.8,
+        `translateX(${(1 - progress) * 100}%) translateY(0%)`,
+      );
+
+      const elements = setupElements(next);
+      if (progress > 0.5) {
+        setOpacityAndTransform(
+          elements.h1[0],
+          1,
+          `translateX(${scrollY - oneBottom}px)`,
+        );
+
+        elements.p.forEach((para, index) => {
+          const translateX =
+            index === 0
+              ? (scrollY - oneBottom) * 2.5
+              : index === 1
+              ? (scrollY - oneBottom) * 3.5
+              : (scrollY - oneBottom) * 4.5;
+          setOpacityAndTransform(para, 1, `translateX(${translateX}px)`);
+        });
+
+        setOpacityAndTransform(
+          elements.bkg,
+          `translateY(${(1 - progress) * -100}%)`,
+          Math.abs(progress),
+        );
+      }
+    } else {
+      setOpacityAndTransform(section, 1, "translateX(0%) translateY(0%)");
+      setOpacityAndTransform(next, 1, "translateX(100%) translateY(0%)");
+      isXReset = true;
+    }
+  }
+};
+
+const handleApplySection = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 6;
+  const oneBottom = sectionHeight * 7;
+
+  if (scrollY >= oneTop && scrollY <= oneBottom) {
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    setOpacityAndTransform(section, 1, `translateX(0%) translateY(0%)`);
+    section.style.zIndex = 10;
+
+    setOpacityAndTransform(
+      next,
+      1,
+      `translateX(0%) translateY(${(1 - progress) * 100}%)`,
+    );
+    if (progress > 0.95) {
+      setOpacityAndTransform(next, 1, `translateX(0%) translateY(0%)`);
+    }
+  } else {
+    setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
   }
 };
