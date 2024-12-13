@@ -16,7 +16,6 @@
   border-radius: 0px;
   z-index: 100;
 }
-
 html,
 body {
   margin: 0;
@@ -32,6 +31,9 @@ body {
   /* overflow: hidden; */
 }
 
+body {
+  cursor: url("/assets/svg/bear.png"), auto;
+}
 .ease-animation {
   transition: transform 0.1s ease, opacity 0.5s ease;
 }
@@ -85,6 +87,40 @@ a {
 
 a:hover {
   color: #0056b3;
+}
+
+.main-image:hover {
+  transform: scale(0.8);
+}
+.explode-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none; /* Prevent interactions */
+  overflow: hidden; /* Hide overflowing elements */
+}
+
+.smiley {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: scale(0); /* Start hidden */
+  transition: transform 0.5s ease, top 0.5s ease, left 0.5s ease;
+  animation: fall 2s ease-out forwards, fadeOut 2s ease-in forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    /* opacity: 0; */
+  }
 }
 
 /* ================================================================================================================================================ */
@@ -153,7 +189,7 @@ nav path {
   padding: 0.25rem 1rem;
   border: none;
   border-radius: 0.25rem;
-  cursor: pointer;
+  cursor: crosshair;
   transition: background-color 0.3s ease;
   vertical-align: bottom;
   line-height: 20px;
@@ -475,7 +511,7 @@ main > section,
 .clientsWrapper .tilting {
   padding: 0rem;
   background-color: transparent;
-  cursor: pointer;
+  cursor: crosshair;
   position: absolute;
   pointer-events: all;
   z-index: 20;
@@ -656,7 +692,7 @@ main > section,
   justify-content: center;
   align-items: center;
   margin-left: 10px;
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 .sectionFour > div > .services > a span,
@@ -894,7 +930,7 @@ main > section,
 }
 
 .sectionEight a {
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 /* ================================================================================================================================================ */
@@ -940,7 +976,7 @@ main > section,
 .sectionNine > header .btns img {
   height: 50px;
   width: auto;
-  cursor: pointer;
+  cursor: crosshair;
   pointer-events: all;
 }
 .sectionNine > header .btns img:hover {

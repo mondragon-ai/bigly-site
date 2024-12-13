@@ -177,6 +177,71 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   updateCards();
+  let isAnimating = false; // State variable to track animation status
+
+  document.querySelector(".main-image").addEventListener("mouseenter", () => {
+    if (isAnimating) return; // Prevent reanimation if already animating
+    isAnimating = true; // Set the state to animating
+    const smileyContainer = document.querySelector(".explode-container");
+    const mainImage = document.querySelector(".main-image");
+
+    smileyContainer.style.zIndex = 101;
+
+    // Get the dimensions and position of the main-image
+    const mainImageRect = mainImage.getBoundingClientRect();
+    const containerRect = smileyContainer.getBoundingClientRect();
+
+    // Calculate the center of the main-image relative to the explode-container
+    const centerX =
+      mainImageRect.left + mainImageRect.width / 2 - containerRect.left;
+    const centerY =
+      mainImageRect.top + mainImageRect.height / 2 - containerRect.top;
+
+    const totalSmileys = 10;
+    const concentrationFactor = 0.2;
+
+    // Clear existing smileys (optional, in case of multiple hovers)
+    smileyContainer.innerHTML = "";
+
+    for (let i = 0; i < totalSmileys; i++) {
+      const smiley = document.createElement("img");
+      smiley.src = "/assets/svg/smiley.png";
+      smiley.classList.add("smiley");
+
+      // Randomize final positions
+      const size = Math.random() * 30 + 10; // Random size between 10px and 40px
+      const offsetX =
+        (Math.random() - 0.5) * containerRect.width * concentrationFactor;
+      const offsetY =
+        (Math.random() - 0.5) * containerRect.height * concentrationFactor;
+      const rotation = Math.random() * 360; // Random rotation
+
+      // Start at the center of the triggering image
+      smiley.style.width = `${size}px`;
+      smiley.style.height = `${size}px`;
+      smiley.style.left = `${centerX - size / 2}px`;
+      smiley.style.top = `${centerY - size / 2}px`;
+      smiley.style.transform = `scale(0) rotate(${rotation}deg)`;
+
+      smileyContainer.appendChild(smiley);
+
+      // Animate to the randomized position
+      setTimeout(() => {
+        smiley.style.left = `${centerX + offsetX - size / 2}px`;
+        smiley.style.top = `${Number(centerY + offsetY - size / 2) - 400}px`;
+        smiley.style.transform = `scale(${
+          (Math.random() * 10) / 2
+        }) rotate(${rotation}deg)`;
+      }, 10);
+
+      // Remove element after animation
+      setTimeout(() => {
+        isAnimating = false; // Allow animations again
+        smiley.remove();
+        smileyContainer.style.zIndex = 1;
+      }, 2000);
+    }
+  });
 });
 
 // HERO -> MOTTO SECITON
@@ -404,6 +469,15 @@ const handleApplySection = (scrollY, sectionHeight, section, next) => {
     section.style.zIndex = 8;
     next.style.zIndex = 10;
 
+    if (progress < 0.2) {
+      cards.forEach((card) => {
+        setOpacityAndTransform(
+          card,
+          1,
+          "translateY(100%) rotateX(45deg) rotateZ(-35deg)",
+        );
+      });
+    }
     if (progress <= 0.3) {
       setOpacityAndTransform(next, (progress + 0.4) * 1.5);
       const translateX = -100 + progress * (100 / 0.3);
@@ -427,7 +501,8 @@ const handleApplySection = (scrollY, sectionHeight, section, next) => {
           `translateY(${translateY}%) rotateX(45deg) rotateZ(-35deg)`,
         );
       });
-    } else {
+    }
+    if (progress > 0.8) {
       cards.forEach((card) => {
         setOpacityAndTransform(
           card,
