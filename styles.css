@@ -93,13 +93,15 @@ a:hover {
   transform: scale(0.8);
 }
 .explode-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   pointer-events: none; /* Prevent interactions */
   overflow: hidden; /* Hide overflowing elements */
+  /* background-color: #0056b3; */
+  /* z-index: 101; */
 }
 
 .smiley {

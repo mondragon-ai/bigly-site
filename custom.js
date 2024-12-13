@@ -13,9 +13,13 @@ const resetSections = (section = null) => {
   const sections = document.querySelectorAll("main section");
   sections.forEach((s) => {
     s.style.opacity = 0;
+
+    // s.style.display = "none";
   });
   if (section) {
     section.style.opacity = 1;
+
+    // section.style.display = "flex";
   } else {
     const sectionHeight = getHeight(sections[0]);
     const scroll = window.scrollY;
@@ -312,7 +316,10 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
       if (progress > 0.9) {
         setOpacityAndTransform(next, progress * 0.85);
       }
+      current.style.zIndex = 10;
+      next.style.zIndex = 10;
     } else {
+      current.style.zIndex = 11;
       applyStyles(next, {
         opacity: 0,
         transform: "none",
@@ -356,6 +363,7 @@ const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
       });
     }
 
+    next.style.zIndex = 10;
     if (progress > 0.6) {
       setOpacityAndTransform(next, Math.abs(progress));
     } else {
@@ -374,6 +382,7 @@ const handleSectionThree = (scrollY, sectionHeight, section, next) => {
   const oneBottom = sectionHeight * 3;
 
   if (scrollY >= oneTop && scrollY < oneBottom) {
+    next.style.zIndex = 10;
     document.querySelector(".sectionThree").style.opacity = 1;
     const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
 
@@ -386,6 +395,8 @@ const handleSectionThree = (scrollY, sectionHeight, section, next) => {
     }
   } else {
     setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
+    section.style.zIndex = 10;
+    next.style.zIndex = 2;
   }
 };
 
@@ -396,6 +407,8 @@ const handleServiceSections = (scrollY, sectionHeight, section, next, step) => {
   const oneBottom = sectionHeight * (4 + step);
 
   if (scrollY >= oneTop && scrollY < oneBottom) {
+    section.style.zIndex = 11;
+    next.style.zIndex = 11;
     document.querySelector(".sectionThree").style.opacity = 0;
     const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
     const opacity = calculateFadeOut(scrollY, oneBottom, 0.9);
@@ -465,9 +478,9 @@ const handleApplySection = (scrollY, sectionHeight, section, next) => {
 
   const curr = setupElements(next);
   if (scrollY >= oneTop && scrollY <= oneBottom) {
+    section.style.zIndex = 11;
+    next.style.zIndex = 11;
     const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
-    section.style.zIndex = 8;
-    next.style.zIndex = 10;
 
     if (progress < 0.2) {
       cards.forEach((card) => {
@@ -529,7 +542,7 @@ const handleTeamSections = (scrollY, sectionHeight, section, next) => {
     setOpacityAndTransform(section, 1);
     const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
     const opacity = calculateFadeOut(scrollY, oneBottom, 0.6);
-    next.style.zIndex = 10;
+    next.style.zIndex = 11;
 
     if (progress > 0.3) {
       applyStyles(section, {
@@ -568,6 +581,8 @@ const handleTeamSections = (scrollY, sectionHeight, section, next) => {
       setOpacityAndTransform(next, 1, `translateX(0%) translateY(0%)`);
     }
   } else {
+    section.style.zIndex = 10;
+    next.style.zIndex = 2;
     setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
     // setOpacityAndTransform(section, 0);
   }
