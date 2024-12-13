@@ -1,407 +1,393 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
-  //   const mainElement = document.querySelector("main");
-  //   const headerElement = document.querySelector(".navbar");
-  // //   const headerHeight = headerElement.offsetHeight;
-  //   const sections = {
-  //     one: document.querySelector(".sectionOne"),
-  //     two: document.querySelector(".sectionTwo"),
-  //     three: document.querySelector(".sectionThree"),
-  //     four: document.querySelector(".sectionFour"),
-  //     five: document.querySelector(".sectionFive"),
-  //   };
-  //   const sectionOneElements = {
-  //     headers: sections.one.querySelectorAll(".txt h1"),
-  //     backgroundHeader: sections.one.querySelector("#bg-lines"),
-  //     logo: sections.one.querySelector("div img"),
-  //     paragraph: sections.one.querySelector(".txt p"),
-  //   };
-  //   const sectionTwoElements = {
-  //     txt: sections.two.querySelector(".txt"),
-  //     img: sections.two.querySelector("img"),
-  //     header: sections.two.querySelector(".txt h1"),
-  //     paragraph: sections.two.querySelector(".txt p"),
-  //     background: document.querySelector(".bkg-two"),
-  //   };
-  //   const sectionThreeElements = {
-  //     background: document.querySelector(".bkg-three"),
-  //     header: sections.three.querySelector(".txt"),
-  //     clients: sections.three.querySelector(".clientsWrapper"),
-  //   };
-  //   const sectionFourElements = {
-  //     ecom: sections.four.querySelector("#ecom"),
-  //     sub: sections.four.querySelector("h4"),
-  //     title: sections.four.querySelector("h1"),
-  //     para: sections.four.querySelectorAll("p"),
-  //   };
-  //   const sectionFiveElements = {
-  //     mkt: sections.five.querySelector("#marketing"),
-  //     sub: sections.five.querySelector("h4"),
-  //     title: sections.five.querySelector("h1"),
-  //     para: sections.five.querySelectorAll("p"),
-  //     bkg: sections.five.querySelector("img"),
-  //   };
-  //   // Helper Functions
-  //   const setTransformAndOpacity = (element, transform, opacity) => {
-  //     element.style.transform = transform;
-  //     element.style.opacity = opacity;
-  //   };
-  //   const resetStyles = (elements, styles) => {
-  //     elements.forEach((element, index) => {
-  //       Object.entries(styles[index]).forEach(([property, value]) => {
-  //         element.style[property] = value;
-  //       });
-  //     });
-  //   };
-  //   const applyStyles = (element, styles) => {
-  //     Object.entries(styles).forEach(([property, value]) => {
-  //       if (element) element.style[property] = value;
-  //     });
-  //   };
-  //   const setOpacityAndTransform = (element, opacity, transform = "none") => {
-  //     applyStyles(element, { opacity, transform });
-  //   };
-  //   const calculateScrollProgress = (scrollTop, start, end) => {
-  //     if (scrollTop < start) return 0;
-  //     if (scrollTop > end) return 1;
-  //     return (scrollTop - start) / (end - start);
-  //   };
-  // Scroll Event
-  //   mainElement.addEventListener("scroll", () => {
-  //     const scrollY = mainElement.scrollTop;
-  //     const offset = scrollY - headerHeight;
-  //     const sectionOneHeight = sections.one.getBoundingClientRect().height;
-  //     const sectionTwoStart = sectionOneHeight;
-  //     const sectionTwoEnd = sectionOneHeight * 2;
-  //     // Section One Logic
-  //     if (offset > 0) {
-  //       const opacity = Math.max(0, 1 - (offset * 1.7) / sectionOneHeight);
-  //       const progress = offset / sectionTwoEnd;
-  //       //   const progress = scrollY / sectionOneHeight;
-  //       //   const opacity = Math.max(0, (1 - progress) * 2);
-  //       sectionOneElements.headers.forEach((header, index) => {
-  //         const translateX = index === 0 ? offset * 2.5 : offset;
-  //         const transform =
-  //           index === 1
-  //             ? `rotate(350deg) translateY(-45%) translateX(${translateX}px)`
-  //             : `translateX(${translateX}px)`;
-  //         setTransformAndOpacity(header, transform, opacity);
-  //       });
-  //       setTransformAndOpacity(
-  //         sectionOneElements.backgroundHeader,
-  //         `translate(90%, 0%) scale(2, 2) translateY(${offset * -0.5}px)`,
-  //         1,
-  //       );
-  //       setTransformAndOpacity(
-  //         sectionOneElements.paragraph,
-  //         `translateX(${offset * 2.2}px)`,
-  //         opacity,
-  //       );
-  //       setTransformAndOpacity(
-  //         sectionOneElements.logo,
-  //         `rotate(${Math.round(1 - progress * 360)}deg) scale(${
-  //           1 - progress * 0.5
-  //         })`,
-  //         opacity,
-  //       );
-  //       // Section Two Header
-  //       const sectionTwoProgress = (scrollY - sectionTwoStart) / sectionOneHeight;
-  //       const translateYValue = Math.max(0, 100 - sectionTwoProgress * 100) - 100;
-  //       setTransformAndOpacity(
-  //         sectionTwoElements.header,
-  //         `translateY(-${translateYValue * 3.5}px)`,
-  //         progress * 0.33,
-  //       );
-  //       setTransformAndOpacity(
-  //         sectionTwoElements.paragraph,
-  //         `translateY(${translateYValue}px)`,
-  //         progress,
-  //       );
-  //     } else {
-  //       resetStyles(
-  //         [
-  //           sectionOneElements.headers,
-  //           sectionOneElements.logo,
-  //           sectionOneElements.paragraph,
-  //         ],
-  //         [
-  //           {transform: "none", opacity: "1"},
-  //           {transform: "none", opacity: "1"},
-  //           {transform: "none", opacity: "1"},
-  //         ],
-  //       );
-  //     }
-  //     // Section Two Logic
-  //     if (scrollY >= sectionTwoStart && scrollY <= sectionTwoEnd) {
-  //       const sectionTwoProgress = (scrollY - sectionTwoStart) / sectionOneHeight;
-  //       const translateY = Math.max(0, 100 - sectionTwoProgress * 100) - 100;
-  //       const progress = scrollY / sectionTwoEnd;
-  //       const opacity = Math.max(0, (1 - progress) * 2);
-  //       setTransformAndOpacity(
-  //         sectionTwoElements.header,
-  //         `translateY(${translateY}px)`,
-  //         opacity,
-  //       );
-  //       setTransformAndOpacity(
-  //         sectionTwoElements.paragraph,
-  //         `translateY(${translateY}px)`,
-  //         opacity,
-  //       );
-  //       setTransformAndOpacity(
-  //         sectionTwoElements.img,
-  //         `scale(${1 - progress * 0.2})`,
-  //         opacity,
-  //       );
-  //       if (progress > 0.6) {
-  //         // ! Section Three Start
-  //         const reverse = sectionOneHeight / (scrollY - sectionTwoStart);
-  //         setTransformAndOpacity(
-  //           sectionThreeElements.background,
-  //           `scale(${1})`, //`scale(${reverse})`,
-  //           Math.abs(progress),
-  //         );
-  //         setTransformAndOpacity(
-  //           sectionThreeElements.header,
-  //           `translateX(${Number(scrollY - sectionTwoStart - 1000) * 0.2}px)`,
-  //           Math.abs(1 - progress * 0.9),
-  //         );
-  //         setTransformAndOpacity(
-  //           sectionThreeElements.clients,
-  //           "none",
-  //           Math.abs(1 - progress * 0.91),
-  //         );
-  //       } else {
-  //         resetStyles(
-  //           [sectionTwoElements.background, sectionThreeElements.background],
-  //           [
-  //             {transform: "none", opacity: "1"},
-  //             {transform: "none", opacity: "0"},
-  //           ],
-  //         );
-  //       }
-  //     } else if (scrollY < sectionTwoStart) {
-  //       resetStyles(
-  //         [sectionTwoElements.background, sectionThreeElements.background],
-  //         [
-  //           {transform: "none", opacity: "1"},
-  //           {transform: "none", opacity: "0"},
-  //         ],
-  //       );
-  //     } else if (scrollY > sectionTwoEnd) {
-  //       resetStyles(
-  //         [
-  //           sectionTwoElements.header,
-  //           sectionTwoElements.paragraph,
-  //           sectionTwoElements.background,
-  //           sectionThreeElements.background,
-  //         ],
-  //         [
-  //           {transform: "translateY(-100px)", opacity: "0.2"},
-  //           {transform: "translateY(600px)", opacity: "1"},
-  //           {transform: "none", opacity: "0"},
-  //           {transform: "scale(1)", opacity: "1"},
-  //         ],
-  //       );
-  //     }
-  //     const sectionThreeStart = sectionOneHeight * 2;
-  //     const sectionThreeEnd = sectionOneHeight * 3;
-  //     // Section Three Logic
-  //     if (scrollY >= sectionThreeStart && scrollY <= sectionThreeEnd) {
-  //       const progress = scrollY / sectionThreeEnd;
-  //       resetStyles(
-  //         [
-  //           sectionThreeElements.background,
-  //           sectionThreeElements.header,
-  //           sectionThreeElements.clients,
-  //           sections.three,
-  //         ],
-  //         [
-  //           {transform: "scale(1)", opacity: "1"},
-  //           {transform: "translateX(0px)", opacity: "1"},
-  //           {transform: "none", opacity: "0.8"},
-  //           {transform: "none", opacity: "1"},
-  //         ],
-  //       );
-  //       if (progress > 0.4) {
-  //         // setTransformAndOpacity(
-  //         //   sectionFourElements.title,
-  //         //   `translateX(${offset - sectionThreeEnd}px)`,
-  //         //   Math.abs(progress),
-  //         // );
-  //         // sectionFourElements.para.forEach((header, index) => {
-  //         //   const translateX =
-  //         //     index === 0
-  //         //       ? (offset - sectionThreeEnd) * 2.5
-  //         //       : index === 1
-  //         //       ? (offset - sectionThreeEnd) * 3.5
-  //         //       : (offset - sectionThreeEnd) * 4.5;
-  //         //   setTransformAndOpacity(
-  //         //     header,
-  //         //     `translateX(${translateX}px)`,
-  //         //     Math.abs(progress),
-  //         //   );
-  //         // });
-  //       }
-  //     } else if (scrollY > sectionThreeEnd) {
-  //       resetStyles(
-  //         [
-  //           sectionThreeElements.background,
-  //           sectionThreeElements.header,
-  //           sectionThreeElements.clients,
-  //           //   sections.four,
-  //           //   sectionFourElements.title,
-  //         ],
-  //         [
-  //           {transform: "none", opacity: "0"},
-  //           {transform: "none", opacity: "0"},
-  //           {transform: "none", opacity: "0"},
-  //           //   {transform: "none", opacity: "1"},
-  //           //   {transform: "none", opacity: "1"},
-  //         ],
-  //       );
-  //       sectionFourElements.para.forEach((header, index) => {
-  //         resetStyles([header], [{transform: "none", opacity: "1"}]);
-  //       });
-  //     }
-  //     const sectionFourStart = sectionOneHeight * 3;
-  //     const sectionFourEnd = sectionOneHeight * 4;
-  //     // Section Four Logic
-  //     if (scrollY >= sectionFourStart && scrollY <= sectionFourEnd) {
-  //       const progress =
-  //         (scrollY - sectionFourStart) / (sectionFourEnd - sectionFourStart);
-  //       //   resetStyles(
-  //       //     [sectionFourElements.title],
-  //       //     [{transform: "none", opacity: "1"}],
-  //       //   );
-  //       //   sectionFourElements.para.forEach((header, index) => {
-  //       //     resetStyles([header], [{transform: "none", opacity: "1"}]);
-  //       //   });
-  //       //   //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
-  //       //   if (progress > 0.1) {
-  //       //     // Slide out Section Four
-  //       //     setTransformAndOpacity(
-  //       //       sections.four,
-  //       //       `translateX(${progress * -100}%)`,
-  //       //       Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
-  //       //     );
-  //       //     // Slide in Section Five
-  //       //     setTransformAndOpacity(
-  //       //       sections.five,
-  //       //       `translateX(${(1 - progress) * 100}%)`,
-  //       //       Math.min(1, progress * 1.2),
-  //       //     );
-  //       //   } else {
-  //       //     resetStyles([sections.four], [{transform: "none", opacity: "1"}]);
-  //       //   }
-  //       //   if (progress > 0.5) {
-  //       //     setTransformAndOpacity(
-  //       //       sectionFiveElements.title,
-  //       //       `translateX(${offset - sectionFourEnd}px)`,
-  //       //       Math.abs(progress),
-  //       //     );
-  //       //     const translateYValue = Math.max(0, 100 - progress * 100) - 100;
-  //       //     setTransformAndOpacity(
-  //       //       sectionFiveElements.bkg,
-  //       //       `translateY(${(1 - progress) * -100}%)`,
-  //       //       Math.abs(progress),
-  //       //     );
-  //       //     sectionFiveElements.para.forEach((header, index) => {
-  //       //       const translateX =
-  //       //         index === 0
-  //       //           ? (offset - sectionFourEnd) * 2.5
-  //       //           : index === 1
-  //       //           ? (offset - sectionFourEnd) * 3.5
-  //       //           : (offset - sectionFourEnd) * 4.5;
-  //       //       setTransformAndOpacity(
-  //       //         header,
-  //       //         `translateX(${translateX}px)`,
-  //       //         Math.abs(progress),
-  //       //       );
-  //       //     });
-  //       //   }
-  //       //   if (progress > 0.95) {
-  //       //     sections.five.style.background = "black";
-  //       //     resetStyles(
-  //       //       [sectionFiveElements.title],
-  //       //       [{transform: "none", opacity: "1"}],
-  //       //     );
-  //       //     sectionFiveElements.para.forEach((header, index) => {
-  //       //       resetStyles([header], [{transform: "none", opacity: "1"}]);
-  //       //     });
-  //       //   }
-  //     } else {
-  //       //   resetStyles(
-  //       //     [sections.four, sections.five],
-  //       //     [
-  //       //       {transform: "none", opacity: "1"},
-  //       //       {transform: "none", opacity: "0"},
-  //       //     ],
-  //       //   );
-  //     }
-  //     // // Ensure Section Five remains fixed once fully visible
-  //     // if (scrollY > sectionFourEnd) {
-  //     //   sections.five.style.transform = "translateX(0)";
-  //     //   sections.five.style.position = "sticky";
-  //     //   const progress =
-  //     //     (scrollY - sectionFourStart) / (sectionFourEnd - sectionFourStart);
-  //     //   //   resetStyles(
-  //     //   //     [sectionFiveElements.title],
-  //     //   //     [{transform: "none", opacity: "1"}],
-  //     //   //   );
-  //     //   //   sectionFiveElements.para.forEach((header, index) => {
-  //     //   //     resetStyles([header], [{transform: "none", opacity: "1"}]);
-  //     //   //   });
-  //     //   //   //   const opacity = Math.max(0, (1 - scrollY / sectionFourEnd) * 2);
-  //     //   //   if (progress > 0.1) {
-  //     //   //     // Slide out Section Five
-  //     //   //     setTransformAndOpacity(
-  //     //   //       sections.five,
-  //     //   //       `translateX(${progress * -100}%)`,
-  //     //   //       Math.max(0, (1 - scrollY / sectionFourEnd) * 2),
-  //     //   //     );
-  //     //   //     // Slide in Section Six
-  //     //   //     setTransformAndOpacity(
-  //     //   //       sections.five,
-  //     //   //       `translateX(${(1 - progress) * 100}%)`,
-  //     //   //       Math.min(1, progress * 1.2),
-  //     //   //     );
-  //     //   //   } else {
-  //     //   //     resetStyles([sections.five], [{transform: "none", opacity: "1"}]);
-  //     //   //   }
-  //     //   if (progress > 0.5) {
-  //     //     // setTransformAndOpacity(
-  //     //     //   sectionFiveElements.title,
-  //     //     //   `translateX(${offset - sectionFourEnd}px)`,
-  //     //     //   Math.abs(progress),
-  //     //     // );
-  //     //     // setTransformAndOpacity(
-  //     //     //   sectionFiveElements.bkg,
-  //     //     //   `translateY(${(1 - progress) * -100}%)`,
-  //     //     //   Math.abs(progress),
-  //     //     // );
-  //     //     // sectionFiveElements.para.forEach((header, index) => {
-  //     //     //   const translateX =
-  //     //     //     index === 0
-  //     //     //       ? (offset - sectionFourEnd) * 2.5
-  //     //     //       : index === 1
-  //     //     //       ? (offset - sectionFourEnd) * 3.5
-  //     //     //       : (offset - sectionFourEnd) * 4.5;
-  //     //     //   setTransformAndOpacity(
-  //     //     //     header,
-  //     //     //     `translateX(${translateX}px)`,
-  //     //     //     Math.abs(progress),
-  //     //     //   );
-  //     //     // });
-  //     //   }
-  //     //   if (progress > 0.95) {
-  //     //     // resetStyles(
-  //     //     //   [sectionFiveElements.title],
-  //     //     //   [{transform: "none", opacity: "1"}],
-  //     //     // );
-  //     //     // sectionFiveElements.para.forEach((header, index) => {
-  //     //     //   resetStyles([header], [{transform: "none", opacity: "1"}]);
-  //     //     // });
-  //     //   }
-  //     // }
-  //   });
+// Get Elements
+const setupElements = (section) => ({
+  h1: section.querySelectorAll("h1") || null,
+  h4: section.querySelectorAll(" h4") || null,
+  txt: section.querySelector(".txt") || null,
+  p: section.querySelectorAll("p") || null,
+  bkg: section.querySelector(".bkg") || null,
+  image: section.querySelector("div > img") || null,
 });
+
+// Set & Reset Styles
+const resetSections = (section = null) => {
+  const sections = document.querySelectorAll("main section");
+  sections.forEach((s) => {
+    s.style.opacity = 0;
+  });
+  if (section) {
+    section.style.opacity = 1;
+  } else {
+    const sectionHeight = getHeight(sections[0]);
+    const scroll = window.scrollY;
+    const i = Math.round(sectionHeight / (scroll > 0 ? scroll : 1));
+    // sections[i].style.opacity = "1";
+  }
+};
+
+const applyStyles = (element, styles) => {
+  Object.entries(styles).forEach(([property, value]) => {
+    if (element) element.style[property] = value;
+  });
+};
+
+// Set Animation
+const setOpacityAndTransform = (element, opacity, transform = "none") => {
+  applyStyles(element, {opacity, transform});
+};
+
+// Get Section Height
+const getHeight = (section) => {
+  return section.getBoundingClientRect().height;
+};
+
+// Calc Section Progress
+const calculateScrollProgress = (scrollTop, start, end) => {
+  if (scrollTop < start) return 0;
+  if (scrollTop > end) return 1;
+  return (scrollTop - start) / (end - start);
+};
+
+// Fade Out Opacity
+const calculateFadeOut = (scrollY, bottomHeight, multiplier = 1.2) => {
+  return Math.max(0, 1 - (scrollY * multiplier) / bottomHeight);
+};
+
+// Fade In Opacity
+const calculateFadeIn = (progress, multiplier = 1) => {
+  return Math.min(1, Math.abs(progress * multiplier));
+};
+
+// Generalized Translation Function
+const translate = (progress, direction = "top-to-bottom", multiplier = 1) => {
+  let value = 0;
+
+  switch (direction) {
+    case "top-to-bottom":
+      value = progress * -100 * multiplier;
+      break;
+    case "bottom-to-top":
+      value = (1 - progress) * 100 * multiplier;
+      break;
+    case "left-to-right":
+      value = progress * 100 * multiplier;
+      break;
+    case "right-to-left":
+      value = (1 - progress) * -100 * multiplier;
+      break;
+    default:
+      console.error(`Invalid direction: ${direction}`);
+  }
+
+  return Number(value.toFixed(2));
+};
+
+// Translate Y in PX (Top to Bottom)
+const translateY = (progress, direction = "top-to-bottom", multiplier = 1) => {
+  return translate(progress, direction, multiplier);
+};
+
+// Translate X in PX (Left to Right)
+const translateX = (progress, direction = "left-to-right", multiplier = 1) => {
+  return translate(progress, direction, multiplier);
+};
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  const mainElement = document.querySelector("main");
+
+  // Get Sections
+  const sections = document.querySelectorAll("main section");
+
+  window.addEventListener("load", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    setTimeout(() => resetSections(sections[0]), 500);
+  });
+
+  // Set Scrollable Height
+  const sectionHeight = getHeight(sections[0]);
+  mainElement.style.paddingBottom = `${sectionHeight * sections.length}px`;
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+
+    handleSectionOne(scrollY, sectionHeight, sections[0], sections[1]);
+    handleSectionTwo(scrollY, sectionHeight, sections[1], sections[2]);
+    handleSectionThree(scrollY, sectionHeight, sections[2], sections[3]);
+    handleServiceSections(scrollY, sectionHeight, sections[3], sections[4], 0);
+    handleServiceSections(scrollY, sectionHeight, sections[4], sections[5], 1);
+    handleServiceSections(scrollY, sectionHeight, sections[5], sections[6], 2);
+    handleApplySection(scrollY, sectionHeight, sections[6], sections[7]);
+  });
+
+  const cards = document.querySelectorAll(".team .card");
+  const prevButton = document.querySelector(".btns img:first-child");
+  const nextButton = document.querySelector(".btns img:last-child");
+  const cardsPerPage = 4;
+  let currentPage = 0;
+
+  // Hide all cards initially
+  function updateCards() {
+    cards.forEach((card, index) => {
+      if (
+        index >= currentPage * cardsPerPage &&
+        index < (currentPage + 1) * cardsPerPage
+      ) {
+        card.style.display = "inline-block"; // Show cards in the current page
+      } else {
+        card.style.display = "none"; // Hide other cards
+      }
+    });
+  }
+
+  // Handle next button click
+  nextButton.addEventListener("click", () => {
+    if ((currentPage + 1) * cardsPerPage < cards.length) {
+      currentPage++;
+      updateCards();
+    }
+  });
+
+  // Handle previous button click
+  prevButton.addEventListener("click", () => {
+    if (currentPage > 0) {
+      currentPage--;
+      updateCards();
+    }
+  });
+
+  // Initialize the cards view
+  updateCards();
+});
+
+const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
+  const oneTop = sectionHeight * 0;
+  const oneBottom = sectionHeight * 1;
+  if (scrollY > oneTop && scrollY < oneBottom) {
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    const opacity = calculateFadeOut(scrollY, oneBottom);
+
+    const elements = setupElements(current);
+    if (progress > 0.2) {
+      elements.h1.forEach((header, index) => {
+        const translateX = index === 0 ? scrollY * 2.5 : scrollY;
+        const transform =
+          index === 1
+            ? `rotate(350deg) translateX(${translateX}px)`
+            : `translateX(${translateX}px)`;
+        setOpacityAndTransform(header, opacity, transform);
+      });
+      elements.p.forEach((para, index) => {
+        setOpacityAndTransform(para, opacity, `translateX(${scrollY * 1.7}px)`);
+      });
+      setOpacityAndTransform(
+        elements.bkg,
+        1,
+        `translate(90%, 0%) scale(2, 2) translateY(${scrollY * -0.5}px)`,
+      );
+
+      setOpacityAndTransform(
+        elements.image,
+        opacity,
+        `rotate(${Math.round(1 - progress * 360)}deg) scale(${
+          1 - progress * 0.5
+        })`,
+      );
+    } else {
+      elements.h1.forEach((header, index) => {
+        const transform =
+          index === 1
+            ? `rotate(350deg) translateX(${0}px)`
+            : `translateX(${0}px)`;
+
+        applyStyles(header, {opacity: 1, transform});
+      });
+      elements.p.forEach((para, index) => {
+        applyStyles(para, {opacity: 1, transform: "translateX(0px)"});
+      });
+      applyStyles(elements.bkg, {
+        opacity: 1,
+        transform: "translate(90%, 0%) scale(2, 2) translateY(0px)",
+      });
+      applyStyles(elements.image, {
+        opacity: 1,
+        transform: "rotate(0deg) scale(1)",
+      });
+    }
+
+    const prev = setupElements(next);
+    if (progress > 0.8) {
+      setOpacityAndTransform(next, progress * 0.4);
+
+      setOpacityAndTransform(
+        prev.h1[0],
+        progress * 0.4,
+        `translateY(${(1 - progress) * -100}%)`,
+      );
+      if (progress > 0.9) {
+        setOpacityAndTransform(next, progress * 0.85);
+      }
+    } else {
+      applyStyles(next, {
+        opacity: 0,
+        transform: "none",
+      });
+    }
+  }
+};
+
+const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 1;
+  const oneBottom = sectionHeight * 2;
+  if (scrollY >= oneTop && scrollY < oneBottom) {
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    const opacity = calculateFadeOut(scrollY, oneBottom);
+
+    const elements = setupElements(section);
+    if (progress > 0.2) {
+      setOpacityAndTransform(
+        elements.txt,
+        opacity,
+        `scale(${1 - progress * 0.2})`,
+      );
+      setOpacityAndTransform(
+        elements.image,
+        opacity,
+        `scale(${1 - progress * 0.2})`,
+      );
+    } else {
+      applyStyles(section, {
+        opacity: 1,
+        transform: "none",
+      });
+      applyStyles(elements.txt, {
+        opacity: 1,
+        transform: "none",
+      });
+      applyStyles(elements.image, {
+        opacity: 1,
+        transform: "none",
+      });
+    }
+
+    if (progress > 0.6) {
+      setOpacityAndTransform(next, Math.abs(progress));
+    } else {
+      applyStyles(next, {
+        opacity: 0,
+        transform: "none",
+      });
+    }
+  }
+};
+
+let isXReset = true;
+const handleSectionThree = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 2;
+  const oneBottom = sectionHeight * 3;
+
+  if (scrollY >= oneTop && scrollY < oneBottom) {
+    document.querySelector(".sectionThree").style.opacity = 1;
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+
+    if (isXReset) {
+      setOpacityAndTransform(
+        next,
+        1,
+        `translateX(0%) translateY(${(1 - progress) * 100}%)`,
+      );
+    }
+  } else {
+    setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
+  }
+};
+
+let isApplyXReset = true;
+const handleServiceSections = (scrollY, sectionHeight, section, next, step) => {
+  const oneTop = sectionHeight * (3 + step);
+  const oneBottom = sectionHeight * (4 + step);
+
+  if (scrollY >= oneTop && scrollY < oneBottom) {
+    document.querySelector(".sectionThree").style.opacity = 0;
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    const opacity = calculateFadeOut(scrollY, oneBottom, 0.9);
+
+    const curr = setupElements(section);
+    curr.p.forEach((para) => {
+      setOpacityAndTransform(para, 1, `translateX(0px)`);
+    });
+    setOpacityAndTransform(curr.h1[0], 1, "translateX(0px)");
+    if (progress > 0.4) {
+      isXReset = false;
+
+      setOpacityAndTransform(
+        section,
+        opacity,
+        `translateX(${((progress - 0.4) * -100) / 0.6}%) translateY(0%)`,
+      );
+      setOpacityAndTransform(
+        next,
+        progress * 0.8,
+        `translateX(${(1 - progress) * 100}%) translateY(0%)`,
+      );
+
+      const elements = setupElements(next);
+      if (progress > 0.5) {
+        setOpacityAndTransform(
+          elements.h1[0],
+          1,
+          `translateX(${scrollY - oneBottom}px)`,
+        );
+
+        elements.p.forEach((para, index) => {
+          const translateX =
+            index === 0
+              ? (scrollY - oneBottom) * 2.5
+              : index === 1
+              ? (scrollY - oneBottom) * 3.5
+              : (scrollY - oneBottom) * 4.5;
+          setOpacityAndTransform(para, 1, `translateX(${translateX}px)`);
+        });
+
+        setOpacityAndTransform(
+          elements.bkg,
+          `translateY(${(1 - progress) * -100}%)`,
+          Math.abs(progress),
+        );
+      }
+      if (progress > 0.95) {
+        setOpacityAndTransform(elements.h1[0], 1, `translateX(0px)`);
+
+        elements.p.forEach((para, index) => {
+          setOpacityAndTransform(para, 1, `translateX(0px)`);
+        });
+      }
+    } else {
+      setOpacityAndTransform(section, 1, "translateX(0%) translateY(0%)");
+      setOpacityAndTransform(next, 1, "translateX(100%) translateY(0%)");
+      isXReset = true;
+    }
+  }
+};
+
+const handleApplySection = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 6;
+  const oneBottom = sectionHeight * 7;
+
+  if (scrollY >= oneTop && scrollY <= oneBottom) {
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    section.style.zIndex = 10;
+
+    setOpacityAndTransform(
+      next,
+      1,
+      `translateX(0%) translateY(${(1 - progress) * 100}%)`,
+    );
+    if (progress > 0.95) {
+      setOpacityAndTransform(next, 1, `translateX(0%) translateY(0%)`);
+    }
+  } else {
+    setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
+  }
+};
