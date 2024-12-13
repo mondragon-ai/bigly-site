@@ -1,7 +1,7 @@
 // Get Elements
 const setupElements = (section) => ({
   h1: section.querySelectorAll("h1") || null,
-  h4: section.querySelectorAll(" h4") || null,
+  h4: section.querySelectorAll("h4") || null,
   txt: section.querySelector(".txt") || null,
   p: section.querySelectorAll("p") || null,
   bkg: section.querySelector(".bkg") || null,
@@ -119,6 +119,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     handleServiceSections(scrollY, sectionHeight, sections[4], sections[5], 1);
     handleServiceSections(scrollY, sectionHeight, sections[5], sections[6], 2);
     handleApplySection(scrollY, sectionHeight, sections[6], sections[7]);
+    handleTeamSections(scrollY, sectionHeight, sections[7], sections[8]);
   });
 
   const cards = document.querySelectorAll(".team .card");
@@ -127,40 +128,58 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const cardsPerPage = 4;
   let currentPage = 0;
 
-  // Hide all cards initially
   function updateCards() {
     cards.forEach((card, index) => {
       if (
         index >= currentPage * cardsPerPage &&
         index < (currentPage + 1) * cardsPerPage
       ) {
-        card.style.display = "inline-block"; // Show cards in the current page
+        card.style.display = "inline-block";
       } else {
-        card.style.display = "none"; // Hide other cards
+        card.style.display = "none";
       }
     });
+    updateButtons();
   }
 
-  // Handle next button click
+  function updateButtons() {
+    if (currentPage === 0) {
+      prevButton.style.opacity = 0.5;
+      prevButton.style.pointerEvents = "none";
+    } else {
+      prevButton.style.opacity = 1;
+      prevButton.style.pointerEvents = "auto";
+    }
+
+    if ((currentPage + 1) * cardsPerPage >= cards.length) {
+      nextButton.style.opacity = 0.5;
+      nextButton.style.pointerEvents = "none";
+    } else {
+      nextButton.style.opacity = 1;
+      nextButton.style.pointerEvents = "auto";
+    }
+  }
+
   nextButton.addEventListener("click", () => {
     if ((currentPage + 1) * cardsPerPage < cards.length) {
       currentPage++;
       updateCards();
+      nextButton.style.opacity = 1;
     }
   });
 
-  // Handle previous button click
   prevButton.addEventListener("click", () => {
     if (currentPage > 0) {
       currentPage--;
       updateCards();
+      prevButton.style.opacity = 1;
     }
   });
 
-  // Initialize the cards view
   updateCards();
 });
 
+// HERO -> MOTTO SECITON
 const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
   const oneTop = sectionHeight * 0;
   const oneBottom = sectionHeight * 1;
@@ -237,6 +256,7 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
   }
 };
 
+// MOTTO SECITON -> PARTNERS SECTION
 const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
   const oneTop = sectionHeight * 1;
   const oneBottom = sectionHeight * 2;
@@ -282,6 +302,7 @@ const handleSectionTwo = (scrollY, sectionHeight, section, next) => {
   }
 };
 
+// PARTNERS SECTION -> SERVICE SECTION(S)
 let isXReset = true;
 const handleSectionThree = (scrollY, sectionHeight, section, next) => {
   const oneTop = sectionHeight * 2;
@@ -303,6 +324,7 @@ const handleSectionThree = (scrollY, sectionHeight, section, next) => {
   }
 };
 
+// SERVICE SECTIONS 1 - 4
 let isApplyXReset = true;
 const handleServiceSections = (scrollY, sectionHeight, section, next, step) => {
   const oneTop = sectionHeight * (3 + step);
@@ -371,14 +393,97 @@ const handleServiceSections = (scrollY, sectionHeight, section, next, step) => {
   }
 };
 
+// SERVICE -> MEET THE TEAM
 const handleApplySection = (scrollY, sectionHeight, section, next) => {
   const oneTop = sectionHeight * 6;
   const oneBottom = sectionHeight * 7;
 
+  const curr = setupElements(next);
   if (scrollY >= oneTop && scrollY <= oneBottom) {
     const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
-    section.style.zIndex = 10;
+    section.style.zIndex = 8;
+    next.style.zIndex = 10;
 
+    if (progress <= 0.3) {
+      setOpacityAndTransform(next, (progress + 0.4) * 1.5);
+      const translateX = -100 + progress * (100 / 0.3);
+      setOpacityAndTransform(curr.h1[0], 1, `translateX(${translateX}%)`);
+    } else {
+      setOpacityAndTransform(curr.h1[0], 1, "translateX(0%)");
+    }
+
+    const cards = document.querySelectorAll(".card");
+    if (progress >= 0.2 && progress <= 0.8) {
+      cards.forEach((card, i) => {
+        const delay = i * 0.3;
+        const effectiveProgress = Math.max(0, progress - delay);
+        const y = 100 - effectiveProgress * (100 / 0.8);
+
+        const translateY = Math.max(y, 0);
+
+        setOpacityAndTransform(
+          card,
+          1,
+          `translateY(${translateY}%) rotateX(45deg) rotateZ(-35deg)`,
+        );
+      });
+    } else {
+      cards.forEach((card) => {
+        setOpacityAndTransform(
+          card,
+          1,
+          "translateY(0%) rotateX(45deg) rotateZ(-35deg)",
+        );
+      });
+    }
+    if (progress > 0.9) {
+      setOpacityAndTransform(section, 0);
+    }
+  } else {
+    setOpacityAndTransform(next, 0, `translateX(0%) translateY(0%)`);
+  }
+};
+
+// MEET THE TEAM -> APPLY
+const handleTeamSections = (scrollY, sectionHeight, section, next) => {
+  const oneTop = sectionHeight * 7;
+  const oneBottom = sectionHeight * 8;
+
+  const elements = setupElements(next);
+  if (scrollY >= oneTop && scrollY <= oneBottom) {
+    setOpacityAndTransform(section, 1);
+    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
+    const opacity = calculateFadeOut(scrollY, oneBottom, 0.6);
+    next.style.zIndex = 10;
+
+    if (progress > 0.3) {
+      applyStyles(section, {
+        opacity,
+        transform: `translateX(0%) scale(${1 - progress})`,
+        filter: "blur(8px)",
+        ["box-shadow"]: "0px 0px 20px 20px #ffdada",
+      });
+    } else {
+      applyStyles(section, {
+        opacity: 1,
+        transform: `translateX(0%) scale(1)`,
+        filter: "blur(0px)",
+        ["box-shadow"]: "0px 0px 0px 0px transparent",
+      });
+    }
+
+    if (progress > 0.5) {
+      const xLeft = -100 + progress * 100;
+      setOpacityAndTransform(elements.h1[0], 1, `translateX(${xLeft}%)`);
+      const yUp = -100 + progress * 100;
+      setOpacityAndTransform(elements.h4[0], 1, `translateY(${yUp}%)`);
+      const yDown = 60 - (progress - 0.5) * 120;
+      setOpacityAndTransform(
+        document.querySelector("#apply"),
+        1,
+        `translateY(${yDown}%)`,
+      );
+    }
     setOpacityAndTransform(
       next,
       1,
@@ -389,5 +494,6 @@ const handleApplySection = (scrollY, sectionHeight, section, next) => {
     }
   } else {
     setOpacityAndTransform(next, 1, `translateX(0%) translateY(100%)`);
+    // setOpacityAndTransform(section, 0);
   }
 };

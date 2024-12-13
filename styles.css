@@ -796,7 +796,7 @@ main > section,
 }
 
 /* ================================================================================================================================================ */
-/* ! SECTION EIGHT                                                                                                                                  */
+/* ! SECTION EIGHT: JOIN THE TEAM                                                                                                                   */
 /* ================================================================================================================================================ */
 .sectionEight {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -838,6 +838,7 @@ main > section,
   color: #f9f9f9;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
+  transform: translateX(-100%);
 }
 
 .sectionEight .txt h4 {
@@ -853,6 +854,7 @@ main > section,
   top: 45%;
   z-index: 10;
   font-family: "Anton SC", sans-serif;
+  transform: translateY(-60%);
 }
 
 .sectionEight .txt a {
@@ -865,6 +867,7 @@ main > section,
   border-radius: 5px;
   margin-top: 3rem;
   animation: transform 0.3s ease;
+  transform: translateY(60%);
 }
 
 .sectionEight .txt a:hover {
@@ -895,19 +898,18 @@ main > section,
 }
 
 /* ================================================================================================================================================ */
-/* ! SECTION EIGHT                                                                                                                                  */
+/* ! SECTION NINE: MEET THE TEAM                                                                                                                    */
 /* ================================================================================================================================================ */
 .sectionNine {
   background: white;
-  opacity: 1 !important;
-  z-index: 2000;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  /* transform: translateY(100%); */
 }
 
 .sectionNine > header {
-  padding: 2rem;
+  padding: 15rem 2rem 0 2rem;
   width: 100%;
   height: auto;
   display: flex;
@@ -950,11 +952,11 @@ main > section,
   width: 100%;
   flex: 1;
   height: 100%;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
   margin: 0;
   display: flex;
   flex-wrap: nowrap;
-  overflow: scroll;
+  overflow: hidden;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -969,13 +971,15 @@ main > section,
   display: inline-block;
   box-shadow: -20px 20px 5px rgba(0, 0, 0, 0.1);
   transition: 1s;
-  transform: rotateX(45deg) rotateZ(-35deg);
+  transform: rotateX(45deg) rotateZ(-35deg) translateY(100%) translateX(0%);
   opacity: 1;
   perspective: 750px;
+  /* transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  will-change: transform, opacity; */
 }
 
 .card:hover {
-  transform: rotateX(0deg) rotateZ(0deg) scale(1.3);
+  transform: rotateX(0deg) rotateZ(0deg) scale(1.3) !important;
   box-shadow: -5px 20px 5px rgba(0, 0, 0, 0.1);
   opacity: 1;
 }
@@ -1011,14 +1015,27 @@ main > section,
 }
 
 .card .photo {
-  background: url("https://media3.giphy.com/media/deDrsSGKFedACXe7kI/giphy.gif?cid=790b76115d1f84186c38576c6716abe8&rid=giphy.gif");
-  /*   background-size:150%; */
+  position: absolute;
   background-position: 50% 0%;
   height: 275px;
   width: 230px;
   top: 10px;
   left: 10px;
-  outline: 0px solid black;
+  outline: 1px solid rgb(137, 137, 137);
+}
+
+.card .logo {
+  position: absolute;
+  width: 45px;
+  height: auto;
+  right: 1rem;
+  top: 1rem;
+}
+
+.card .logo img {
+  width: 45px;
+  height: auto;
+  object-fit: contain;
 }
 
 .card .overlay {
@@ -1041,7 +1058,8 @@ main > section,
   /*   overflow:hidden; */
 }
 .card .overlay h1 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: "Playball", cursive;
+
   font-size: 18px;
   font-weight: 900;
   text-align: right;
@@ -1072,4 +1090,5 @@ main > section,
   position: absolute;
   right: 10px;
   bottom: 25px;
+  color: rgb(163, 163, 163);
 }
