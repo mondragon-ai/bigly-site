@@ -92,7 +92,7 @@ a:hover {
 }
 
 .main-image:hover {
-  transform: scale(0.8);
+  transform: scale(0.8) !important;
 }
 .explode-container {
   position: fixed;
@@ -368,6 +368,8 @@ main > section,
   line-height: 255px;
   color: #f9f9f9;
   font-family: "Anton SC", sans-serif;
+  top: 20%;
+  position: absolute;
 }
 
 .sectionTwo > .bkg-two > .txt .outline {
@@ -388,6 +390,10 @@ main > section,
   font-size: 44px;
   line-height: 45px;
   padding-right: 15rem;
+}
+
+.sectionTwo > .bkg-two > .txt p {
+  padding-top: 25rem;
 }
 
 .sectionTwo > .bkg-two > .txt {

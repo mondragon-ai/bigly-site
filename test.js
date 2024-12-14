@@ -71,12 +71,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setTimeout(() => {
       // Set Scrollable Height
       sectionHeight = getHeight(sections[0]);
-      mainElement.style.paddingBottom = `${sectionHeight * sections.length}px`;
+      mainElement.style.paddingBottom = `${sectionHeight * 2}px`;
     }, 700);
   });
 
+  // Function to calculate the closest section based on scroll position
+  const getClosestSectionIndex = (scrollY) => {
+    return Math.round(scrollY / sectionHeight);
+  };
+
+  // Function to snap to the closest section
+  const snapToSection = () => {
+    const scrollY = window.scrollY;
+    const closestSectionIndex = getClosestSectionIndex(scrollY);
+    const targetPosition = closestSectionIndex * sectionHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+  };
+
+  let isThrottling = false;
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
+
+    if (!isThrottling) {
+      isThrottling = true;
+
+      setTimeout(() => {
+        snapToSection();
+        isThrottling = false;
+      }, 750); // Adjust delay to match smooth scrolling timing
+    }
 
     handleSectionOne(scrollY, sectionHeight, sections[0], sections[1]);
     // handleSectionTwo(scrollY, sectionHeight, sections[1], sections[2]);
@@ -209,59 +236,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
-/**
- * Hero section transitioning to "motto" section
- * @param {number} scrollY
- * @param {number} height
- * @param {HTML Element} curr
- * @param {HTML Element} next
- */
-const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
-  const oneTop = sectionHeight * 0;
-  const oneBottom = sectionHeight * 1;
-
-  // Current section elements
-  const cElements = setupElements(current);
-
-  // next section elements
-  const nElements = setupElements(next);
-
-  if (scrollY >= oneTop && scrollY < oneBottom) {
-    next.style.display = "flex";
-    const progress = calculateScrollProgress(scrollY, oneTop, oneBottom);
-    const opacity = calculateFadeOut(progress, 1.2);
-
-    if (progress > 0.2) {
-      next.style.zIndex = 2;
-      cElements.h1.forEach((header, index) => {
-        const translateX = index === 0 ? scrollY * 2.5 : scrollY;
-        const transform =
-          index === 1
-            ? `rotate(350deg) translateX(${translateX}px)`
-            : `translateX(${translateX}px)`;
-        setOpacityAndTransform(header, opacity, transform);
-      });
-
-      cElements.p.forEach((para, index) => {
-        setOpacityAndTransform(para, opacity, `translateX(${scrollY * 1.7}px)`);
-      });
-
-      setOpacityAndTransform(
-        cElements.bkg,
-        1,
-        `translate(90%, 0%) scale(2, 2) translateY(${scrollY * -0.5}px)`,
-      );
-
-      const img = `rotate(${1 - progress * 360}deg) scale(${opacity * 0.3})`;
-      applyStyles(cElements.image, {
-        opacity: 1,
-        transform: img,
-        ["z-index"]: 5,
-      });
-    } else {
-      next.style.zIndex = 0;
-      current.style.zIndex = 2;
-      cElements.h1.forEach((header, index) => {
+// Section One Elements
+const currElementOne = [
+  {
+    progress: 0,
+    apply: (elements, progress) => {
+      elements.h1.forEach((header, index) => {
         const transform =
           index === 1
             ? `rotate(350deg) translateX(${0}px)`
@@ -270,39 +250,162 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
         applyStyles(header, {opacity: 1, transform});
       });
 
-      cElements.p.forEach((para, index) => {
+      elements.p.forEach((para, index) => {
         applyStyles(para, {opacity: 1, transform: "translateX(0px)"});
       });
 
-      applyStyles(cElements.bkg, {
+      applyStyles(elements.bkg, {
         opacity: 1,
         transform: "translate(90%, 0%) scale(2, 2) translateY(0px)",
       });
 
-      applyStyles(cElements.image, {
+      applyStyles(elements.image, {
         opacity: 1,
         transform: "rotate(0deg) scale(1)",
         ["z-index"]: 5,
       });
+    },
+  },
+  ,
+  {
+    progress: 0.2,
+    apply: (elements, progress) => {
+      const opacity = calculateFadeOut(progress);
+
+      elements.h1.forEach((header, index) => {
+        const translateX = index === 0 ? progress * 250 : progress * 100;
+        const transform =
+          index === 1
+            ? `rotate(350deg) translateX(${translateX}px)`
+            : `translateX(${translateX}px)`;
+        setOpacityAndTransform(header, opacity * 1.3, transform);
+      });
+
+      elements.p.forEach((para, index) => {
+        setOpacityAndTransform(
+          para,
+          opacity * 1.3,
+          `translateX(${progress * 170}px)`,
+        );
+      });
+
+      setOpacityAndTransform(
+        elements.bkg,
+        1,
+        `translate(90%, 0%) scale(2, 2) translateY(${progress * -300}px)`,
+      );
+
+      const img = `rotate(${1 - progress * 360}deg) scale(${opacity * 0.3})`;
+      applyStyles(elements.image, {
+        opacity: 1,
+        transform: img,
+        ["z-index"]: 5,
+      });
+    },
+  },
+  {
+    progress: 0.95,
+    apply: (elements, progress) => {
+      elements.h1.forEach((header, index) => {
+        const translateX = index === 0 ? progress * 250 : progress * 100;
+        const transform =
+          index === 1
+            ? `rotate(350deg) translateX(${translateX}px)`
+            : `translateX(${translateX}px)`;
+        setOpacityAndTransform(header, 0, transform);
+      });
+
+      elements.p.forEach((para) => {
+        setOpacityAndTransform(para, 0, `translateX(${progress * 170}px)`);
+      });
+
+      const img = `rotate(0deg) scale(0)`;
+      applyStyles(elements.image, {
+        opacity: 0,
+        transform: img,
+        ["z-index"]: 0,
+      });
+    },
+  },
+];
+
+// Apply Keyframe Animations
+const applyKeyframeAnimations = (elements, progress, keyframes) => {
+  keyframes.forEach(({progress: keyProgress, apply}) => {
+    if (progress >= keyProgress) {
+      apply(elements, progress);
     }
+  });
+};
+
+/**
+ * Hero section transitioning to "motto" section
+ * @param {number} scrollY
+ * @param {number} height
+ * @param {HTML Element} curr
+ * @param {HTML Element} next
+ */
+const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
+  const start = current.offsetTop;
+  const end = start + sectionHeight;
+  const progress = calculateScrollProgress(scrollY, start, end);
+
+  if (progress > 0 && progress <= 1) {
+    next.style.display = "flex";
+    next.style.zIndex = 0;
+    current.style.zIndex = 2;
+
+    if (progress > 0.2) {
+      next.style.zIndex = 2;
+      current.style.zIndex = 1;
+    }
+
+    // Current section elements / animations
+    const cElements = setupElements(current);
+    applyKeyframeAnimations(cElements, progress, currElementOne);
+
+    // Next section elements / animations
+    const nElements = setupElements(next);
 
     if (progress > 0.8) {
       setOpacityAndTransform(next, progress * 0.4);
+      nElements.h1[0].style.zIndex = 101;
 
-      setOpacityAndTransform(
-        nElements.h1[0],
-        progress * 0.4,
-        `translateY(${(1 - progress) * -100}%)`,
-      );
-    }
+      nElements.h1.forEach((element, index) => {
+        const delay = index * 0.05; // Stagger effect
 
-    if (progress > 0.9) {
-      setOpacityAndTransform(next, progress * 0.85);
+        const effectiveProgress = Math.max(0, progress - delay);
+        const y = 100 - effectiveProgress * (100 / 0.8);
+
+        const translateY = Math.max(y, 0);
+
+        setOpacityAndTransform(element, 1, `translateY(${translateY}%)`);
+      });
+    } else {
+      applyStyles(next, {
+        opacity: 0,
+        transform: "none",
+      });
     }
-  } else {
-    applyStyles(next, {
-      opacity: 0,
-      transform: "none",
-    });
+  }
+  if (progress >= 1) {
+    console.log("GRAT");
+    setOpacityAndTransform(next, 1);
+  }
+};
+
+/**
+ * Motto section transitioning to partners section
+ * @param {number} scrollY
+ * @param {number} height
+ * @param {HTML Element} curr
+ * @param {HTML Element} next
+ */
+const handleMottoSection = (scrollY, sectionHeight, current, next = null) => {
+  const start = current.offsetTop;
+  const end = start + sectionHeight;
+  const progress = calculateScrollProgress(scrollY, start, end);
+
+  if (progress > 0 && progress <= 1) {
   }
 };
