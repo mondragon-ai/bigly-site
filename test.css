@@ -543,6 +543,7 @@ main > section,
     line-height: 85px;
     left: 50%;
     transform: translateX(-50%);
+    top: 0;
   }
 
   .sectionTwo > .bkg-two > .txt p,
@@ -733,6 +734,43 @@ main > section,
   object-fit: contain;
   opacity: 0.5;
   transform: rotate(9deg);
+}
+
+@media only screen and (max-width: 600px) {
+  .sectionThree {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .sectionThree .clientsWrapper {
+    width: 100%;
+  }
+
+  .sectionThree > .txt {
+    width: 100%;
+    margin-top: 7rem;
+  }
+
+  .sectionThree > .txt h1 {
+    font-weight: 900;
+    font-size: 80px;
+    line-height: 85px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .bigly-logo {
+    width: 80px;
+  }
+
+  .clientsWrapper .tilting img {
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+  }
 }
 
 /* ================================================================================================================================================ */
@@ -948,6 +986,108 @@ main > section,
   z-index: 0;
 }
 
+@media only screen and (max-width: 600px) {
+  .sectionFour {
+    transform: translateY(0%);
+  }
+
+  .sectionFive,
+  .sectionSix,
+  .sectionSeven {
+    transform: translateY(100%);
+  }
+
+  .sectionFour > div,
+  .sectionFive > div,
+  .sectionSix > div,
+  .sectionSeven > div {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: calc(100vh - 50px);
+    top: auto;
+    bottom: 0;
+  }
+
+  .sectionFour > div > .serviceWrapper,
+  .sectionFive > div > .serviceWrapper,
+  .sectionSix > div > .serviceWrapper,
+  .sectionSeven > div > .serviceWrapper {
+    position: relative;
+    top: 0%;
+    flex: 1;
+    left: 10px;
+    width: auto;
+    height: auto;
+    flex: 1;
+    padding: 2rem;
+    margin-right: 20px;
+  }
+
+  .sectionFour > div > .services,
+  .sectionFive > div > .services,
+  .sectionSix > div > .services,
+  .sectionSeven > div > .services {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    width: 100%;
+  }
+  .sectionFour > div > .services > a,
+  .sectionFive > div > .services > a,
+  .sectionSix > div > .services > a,
+  .sectionSeven > div > .services > a {
+    height: 50px;
+    width: 100%;
+    padding: 2rem;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .sectionFour > div > .services > a:first-of-type,
+  .sectionFive > div > .services > a:first-of-type,
+  .sectionSix > div > .services > a:first-of-type,
+  .sectionSeven > div > .services > a:first-of-type {
+    margin-top: 10px;
+  }
+
+  .sectionFour > div > .services > a span,
+  .sectionFive > div > .services > a span,
+  .sectionSix > div > .services > a span,
+  .sectionSeven > div > .services > a span {
+    writing-mode: horizontal-tb;
+    width: 100%;
+    font-size: 30px;
+    line-height: 32px;
+    text-align: center;
+  }
+
+  .sectionFour > div > .serviceWrapper h4,
+  .sectionFive > div > .serviceWrapper h4,
+  .sectionSix > div > .serviceWrapper h4,
+  .sectionSeven > div > .serviceWrapper h4 {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .sectionFour > div > .serviceWrapper h1,
+  .sectionFive > div > .serviceWrapper h1,
+  .sectionSix > div > .serviceWrapper h1,
+  .sectionSeven > div > .serviceWrapper h1 {
+    font-size: 30px;
+    line-height: 35px;
+  }
+
+  .sectionFour > div > .serviceWrapper p,
+  .sectionFive > div > .serviceWrapper p,
+  .sectionSix > div > .serviceWrapper p,
+  .sectionSeven > div > .serviceWrapper p {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+
 /* ================================================================================================================================================ */
 /* ! SECTION NINE: MEET THE TEAM                                                                                                                    */
 /* ================================================================================================================================================ */
@@ -1143,6 +1283,40 @@ main > section,
   color: rgb(163, 163, 163);
 }
 
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 178px;
+    height: 300px;
+  }
+
+  .card .photo {
+    height: 225px;
+    width: 165px;
+    top: 7px;
+    left: 7px;
+  }
+
+  .card .overlay {
+    width: 35px;
+    height: 35px;
+    border: 2px solid rgb(255, 255, 255);
+    bottom: 40px;
+  }
+
+  .card .overlay h1 {
+    font-size: 12px;
+    line-height: 16px;
+    right: 10px;
+    bottom: 40px;
+  }
+  .card .logo {
+    position: absolute;
+    width: 40px;
+    height: auto;
+    right: 1rem;
+    top: 0.5rem;
+  }
+}
 /* ================================================================================================================================================ */
 /* ! SECTION EIGHT: JOIN THE TEAM                                                                                                                   */
 /* ================================================================================================================================================ */
@@ -1242,4 +1416,52 @@ main > section,
 
 .sectionEight a {
   cursor: crosshair;
+}
+
+.br {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .slide-five-img {
+    bottom: 0;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  .sectionEight .txt {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .sectionEight .txt h4 {
+    font-weight: 500;
+    font-size: 75px;
+    line-height: 80px;
+  }
+  .sectionEight .txt h1 {
+    font-weight: 900;
+    font-size: 65px;
+    line-height: 68px;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .sectionEight .txt a {
+    font-size: 40px;
+    line-height: 44px;
+    padding: 10px 25px;
+    margin-top: 0rem;
+  }
+  .br {
+    display: block;
+  }
+
+  .sectionEight footer {
+    position: absolute;
+    left: 1rem;
+    bottom: 2rem;
+    width: 100%;
+    text-align: center;
+  }
 }
