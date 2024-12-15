@@ -747,6 +747,7 @@ main > section,
 
   .sectionThree .clientsWrapper {
     width: 100%;
+    margin-top: 3rem;
   }
 
   .sectionThree > .txt {
@@ -756,8 +757,8 @@ main > section,
 
   .sectionThree > .txt h1 {
     font-weight: 900;
-    font-size: 80px;
-    line-height: 85px;
+    font-size: 70px;
+    line-height: 75px;
     text-align: center;
     width: 100%;
   }

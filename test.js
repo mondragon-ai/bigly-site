@@ -268,10 +268,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         smileyContainer.appendChild(smiley);
 
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        const top = isMobile ? 300 : 600;
+        const left = isMobile ? 2 : 1;
+
         // Animate to the randomized position
         setTimeout(() => {
-          smiley.style.left = `${centerX + offsetX - size / 2}px`;
-          smiley.style.top = `${Number(centerY + offsetY - size / 2) - 600}px`;
+          smiley.style.left = `${
+            centerX + Number(offsetX * left) - size / 2
+          }px`;
+          smiley.style.top = `${Number(centerY + offsetY - size / 2) - top}px`;
           smiley.style.transform = `scale(${
             (Math.random() * 10) / 2
           }) rotate(${rotation}deg)`;
