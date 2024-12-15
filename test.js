@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       isThrottling = true;
 
       setTimeout(() => {
-        snapToSection();
+        // snapToSection();
         isThrottling = false;
       }, 1000);
     }
@@ -444,21 +444,35 @@ const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
     setOpacityAndTransform(next, progress);
     nElements.h1[0].style.zIndex = 101;
 
-    nElements.h1.forEach((element, index) => {
-      if (index === 0) return; // Skip the first h1
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      nElements.h1.forEach((element, index) => {
+        if (index === 0) return; // Skip the first h1
 
-      const offset = index * 50; // Adjust based on spacing between h1s
-      const effectiveProgress = Math.min(
-        1,
-        Math.max(0, progress - index * 0.1),
-      );
-      const translateY = offset * (1 - effectiveProgress);
+        const offset = index * 0.52;
+        const y = calculateTranslate(progress, 100 * offset, 10 * offset, 1);
 
-      lastTranslations[index] = translateY;
+        lastTranslations[index] = y;
+        element.style.transform = `translateY(${y}%) translateX(-50%)`;
+        element.style.opacity = progress;
+      });
+    } else {
+      nElements.h1.forEach((element, index) => {
+        if (index === 0) return; // Skip the first h1
 
-      element.style.transform = `translateY(-${translateY}px)`;
-      element.style.opacity = translateY === 0 ? 0 : 1;
-    });
+        const offset = index * 50; // Adjust based on spacing between h1s
+        const effectiveProgress = Math.min(
+          1,
+          Math.max(0, progress - index * 0.1),
+        );
+        const translateY = offset * (1 - effectiveProgress);
+
+        lastTranslations[index] = translateY;
+
+        element.style.transform = `translateY(-${translateY}px)`;
+        element.style.opacity = progress;
+      });
+    }
   }
 };
 
@@ -492,18 +506,34 @@ const currElTwo = [
         `scale(${1 - progress * 0.2})`,
       );
 
-      elements.h1.forEach((element, index) => {
-        if (index === 0) return;
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        elements.h1.forEach((element, index) => {
+          if (index === 0) return;
 
-        const translateY = calculateTranslate(
-          progress,
-          lastTranslations[index],
-          0,
-          1,
-        );
-        element.style.transform = `translateY(-${translateY}%)`;
-        element.style.opacity = translateY === 0 ? 0 : 1;
-      });
+          const translateY = calculateTranslate(
+            progress,
+            lastTranslations[index],
+            0,
+            1,
+          );
+          element.style.transform = `translateY(-${translateY}%) translateX(-50%)`;
+          element.style.opacity = opacity;
+        });
+      } else {
+        elements.h1.forEach((element, index) => {
+          if (index === 0) return;
+
+          const translateY = calculateTranslate(
+            progress,
+            lastTranslations[index],
+            0,
+            1,
+          );
+          element.style.transform = `translateY(-${translateY}%)`;
+          element.style.opacity = opacity;
+        });
+      }
     },
   },
 ];
@@ -530,6 +560,7 @@ const handleMottoSection = (scrollY, sectionHeight, current, next = null) => {
       opacity: 1,
       transform: "none",
     });
+
     applyStyles(bear, {
       transform: "translateX(-50%) scale(500) rotate(350deg)",
       ["z-index"]: 100,
@@ -588,7 +619,7 @@ const currElThree = [
       const logos = document.querySelectorAll(".tilting");
 
       applyStyles(bear, {
-        transform: "translateX(0%) scale(0.7) rotate(350deg);",
+        transform: "translateX(0%) scale(0.7) rotate(350deg) translateY(0%)",
         ["z-index"]: 100,
         position: "relative",
         opacity: 0.8,
@@ -611,9 +642,11 @@ const currElThree = [
       const logos = document.querySelectorAll(".tilting");
       const opacity = calculateFadeOut(progress, 2);
 
-      const x = calculateTranslate(progress, 0, 200, 1);
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const x = isMobile ? 0 : calculateTranslate(progress, 0, 200, 1);
+      const y = isMobile ? calculateTranslate(progress, 0, 100, 1) : 0;
       applyStyles(bear, {
-        transform: `translateX(-${x}%) scale(1.5) rotate(360deg)`,
+        transform: `translateX(-${x}%) scale(1.5) rotate(360deg) translateY(${y}%)`,
         ["z-index"]: 100,
         position: "relative",
         opacity: 1,
@@ -710,13 +743,18 @@ const handleFloatSection = (scrollY, sectionHeight, current, next = null) => {
   // Current section elements / animations
   const nElements = setupElements(next);
 
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const x = isMobile ? 0 : 200;
+  const y = isMobile ? 100 : 0;
+
   const bear = document.querySelector(".bigly-logo");
   if (progress > 0 && progress <= 1) {
     if (progress > 0.1) {
       const scale = calculateTranslate(progress, 1, 2.5, 1);
       const blur = calculateTranslate(progress, 0, 10, 1);
+
       applyStyles(bear, {
-        transform: `translateX(-200%) scale(${scale}) rotate(360deg)`,
+        transform: `translateX(-${x}%) scale(${scale}) rotate(360deg) translateY(${y}%)`,
         ["z-index"]: 4,
         position: "relative",
         opacity: opacity,
@@ -737,7 +775,7 @@ const handleFloatSection = (scrollY, sectionHeight, current, next = null) => {
       applyKeyframeAnimations(nElements, progress, serviceOneAnimation);
     } else {
       applyStyles(bear, {
-        transform: `translateX(-200%) scale(${1}) rotate(360deg)`,
+        transform: `translateX(-${x}%) scale(${1}) rotate(360deg) translateY(${y}%)`,
         ["z-index"]: 4,
         position: "relative",
         opacity: opacity,
@@ -790,16 +828,30 @@ const handleServiceSections = (scrollY, sectionHeight, current, next, step) => {
 
   if (progress > 0 && progress <= 1) {
     if (progress > 0.4) {
-      const currX = calculateTranslate(progress, 0, -100, 0.6);
-      setOpacityAndTransform(current, opacity, `translateX(${currX}%)`);
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        const currY = calculateTranslate(progress, 0, -100, 0.6);
+        setOpacityAndTransform(current, opacity, `translateY(${currY}%)`);
 
-      const nextX = calculateTranslate(progress, 100, 0, 1);
-      applyStyles(next, {
-        opacity: progress * 1.2,
-        transform: `translateX(${nextX}%)`,
-        ["z-index"]: 10,
-        display: "flex",
-      });
+        const nextY = calculateTranslate(progress, 100, 0, 1);
+        applyStyles(next, {
+          opacity: progress * 1.2,
+          transform: `translateY(${nextY}%)`,
+          ["z-index"]: 10,
+          display: "flex",
+        });
+      } else {
+        const currX = calculateTranslate(progress, 0, -100, 0.6);
+        setOpacityAndTransform(current, opacity, `translateX(${currX}%)`);
+
+        const nextX = calculateTranslate(progress, 100, 0, 1);
+        applyStyles(next, {
+          opacity: progress * 1.2,
+          transform: `translateX(${nextX}%)`,
+          ["z-index"]: 10,
+          display: "flex",
+        });
+      }
 
       applyKeyframeAnimations(nElements, progress, serviceTwoAnimation);
     }

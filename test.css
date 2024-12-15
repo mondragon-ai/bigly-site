@@ -992,6 +992,13 @@ main > section,
     transform: translateY(0%);
   }
 
+  .sectionFour,
+  .sectionFive,
+  .sectionSix,
+  .sectionSeven {
+    background: #00000000;
+  }
+
   .sectionFive,
   .sectionSix,
   .sectionSeven {
@@ -1098,7 +1105,6 @@ main > section,
   }
 
   .slide-five-img {
-    height: 25%;
     width: 100%;
   }
 }
