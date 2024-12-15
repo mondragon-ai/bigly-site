@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       isThrottling = true;
 
       setTimeout(() => {
-        // snapToSection();
+        snapToSection();
         isThrottling = false;
       }, 1000);
     }
