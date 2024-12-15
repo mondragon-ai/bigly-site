@@ -218,7 +218,7 @@ nav path {
   .navbar ul {
     display: none;
   }
-
+  /* 
   .navbar .hamburger {
     display: flex;
     width: auto;
@@ -228,22 +228,22 @@ nav path {
     justify-content: space-around;
     align-items: flex-start;
     cursor: pointer;
-  }
+  } */
 
-  .navbar .hamburger span {
+  /* .navbar .hamburger span {
     width: 20px;
     height: 3px;
     background-color: white;
-  }
+  } */
 
-  .navbar .hamburger span:nth-of-type(2) {
+  /* .navbar .hamburger span:nth-of-type(2) {
     width: 15px;
-  }
+  } */
 
   .navbar img {
-    position: absolute;
-    left: 50%;
-    transform: translate(-60%, 0);
+    /* position: absolute; */
+    /* left: 50%; */
+    /* transform: translate(-60%, 0); */
     height: 30px;
     width: auto;
   }
@@ -614,7 +614,7 @@ main > section,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.3;
+  opacity: 0.2 !important;
   background-color: white;
   background: transparent;
   z-index: -1;
@@ -1021,7 +1021,7 @@ main > section,
     width: auto;
     height: auto;
     flex: 1;
-    padding: 2rem;
+    padding: 1rem;
     margin-right: 20px;
   }
 
@@ -1039,9 +1039,9 @@ main > section,
   .sectionFive > div > .services > a,
   .sectionSix > div > .services > a,
   .sectionSeven > div > .services > a {
-    height: 50px;
+    height: 45px;
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     align-items: center;
     margin-bottom: 10px;
   }
@@ -1059,7 +1059,7 @@ main > section,
   .sectionSeven > div > .services > a span {
     writing-mode: horizontal-tb;
     width: 100%;
-    font-size: 30px;
+    font-size: 25px;
     line-height: 32px;
     text-align: center;
   }
@@ -1068,16 +1068,16 @@ main > section,
   .sectionFive > div > .serviceWrapper h4,
   .sectionSix > div > .serviceWrapper h4,
   .sectionSeven > div > .serviceWrapper h4 {
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 16px;
+    line-height: 22px;
   }
 
   .sectionFour > div > .serviceWrapper h1,
   .sectionFive > div > .serviceWrapper h1,
   .sectionSix > div > .serviceWrapper h1,
   .sectionSeven > div > .serviceWrapper h1 {
-    font-size: 30px;
-    line-height: 35px;
+    font-size: 22px;
+    line-height: 25px;
   }
 
   .sectionFour > div > .serviceWrapper p,
@@ -1086,6 +1086,20 @@ main > section,
   .sectionSeven > div > .serviceWrapper p {
     font-size: 16px;
     line-height: 16px;
+  }
+
+  .custom-div {
+    border-bottom-width: 50px;
+    border-image-slice: 100%;
+    border-left-width: 50px;
+    bottom: -1px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .slide-five-img {
+    height: 25%;
+    width: 100%;
   }
 }
 
@@ -1285,14 +1299,23 @@ main > section,
 }
 
 @media only screen and (max-width: 600px) {
+  .sectionNine > header {
+    padding: 5rem 2rem 0 2rem;
+  }
+
+  .sectionNine > header h1 {
+    font-size: 65px;
+    line-height: 65px;
+  }
+
   .card {
-    width: 178px;
-    height: 300px;
+    width: 170px;
+    height: 260px;
   }
 
   .card .photo {
-    height: 225px;
-    width: 165px;
+    height: 215px;
+    width: 155px;
     top: 7px;
     left: 7px;
   }
@@ -1301,7 +1324,7 @@ main > section,
     width: 35px;
     height: 35px;
     border: 2px solid rgb(255, 255, 255);
-    bottom: 40px;
+    bottom: 25px;
   }
 
   .card .overlay h1 {
@@ -1316,6 +1339,17 @@ main > section,
     height: auto;
     right: 1rem;
     top: 0.5rem;
+  }
+
+  .card .name {
+    font-size: 13px;
+    right: 7px;
+    bottom: 20px;
+  }
+  .card .name2 {
+    font-size: 8px;
+    right: 7px;
+    bottom: 10px;
   }
 }
 /* ================================================================================================================================================ */
@@ -1423,9 +1457,9 @@ main > section,
   display: none;
 }
 @media only screen and (max-width: 600px) {
-  .slide-five-img {
+  .sectionEight .slide-five-img {
     bottom: 0;
-    height: 100vh;
+    height: 100%;
     object-fit: cover;
   }
 

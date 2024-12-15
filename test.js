@@ -106,11 +106,12 @@ const calculateColorTransition = (progress, startColor, endColor) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const mainElement = document.querySelector("main");
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   const cards = document.querySelectorAll(".team .card");
   const prevButton = document.querySelector(".btns img:first-child");
   const nextButton = document.querySelector(".btns img:last-child");
-  const cardsPerPage = 4;
+  const cardsPerPage = isMobile ? 1 : 4;
   let currentPage = 0;
 
   function updateCards() {
@@ -223,7 +224,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   updateCards();
 
   document.querySelectorAll(".main-image").forEach((el) => {
-    el.addEventListener("mouseenter", () => {
+    const handleExplode = (mobile) => {
       // if (isAnimating) return;
       isAnimating = true;
       const smileyContainer = document.querySelector(".explode-container");
@@ -268,9 +269,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         smileyContainer.appendChild(smiley);
 
-        const isMobile = window.matchMedia("(max-width: 768px)").matches;
-        const top = isMobile ? 300 : 600;
-        const left = isMobile ? 2 : 1;
+        const top = mobile ? 300 : 600;
+        const left = mobile ? 2 : 1;
 
         // Animate to the randomized position
         setTimeout(() => {
@@ -290,7 +290,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
           smileyContainer.style.zIndex = 1;
         }, 2000);
       }
-    });
+    };
+
+    if (isMobile) {
+      el.addEventListener("click", () => handleExplode(true));
+    } else {
+      el.addEventListener("mouseenter", () => handleExplode(false));
+    }
   });
 });
 
