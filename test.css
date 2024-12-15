@@ -37,7 +37,7 @@ body {
   /* min-height: 800vh; */
 }
 .ease-animation {
-  transition: transform 0.1s ease, opacity 0.5s ease;
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 .ease-animation-fast {
@@ -300,12 +300,12 @@ main > section,
 
 .sectionOne > .txt .abs {
   position: absolute;
-  -webkit-text-stroke: 1px rgb(81, 27, 29);
+  /* -webkit-text-stroke: 1px rgb(81, 27, 29); */
   color: rgb(193, 40, 46);
   text-transform: uppercase;
   font-weight: 400;
   font-variation-settings: normal;
-  font-weight: 500;
+  font-weight: 900;
   font-size: 115px;
   line-height: 125px;
   left: 55px;
@@ -313,6 +313,8 @@ main > section,
   transform: rotate(350deg);
   z-index: 1;
   text-shadow: 0 0 20px #6b0106;
+
+  font-family: "Honk", system-ui;
 }
 
 .sectionOne > .txt p {
@@ -368,7 +370,7 @@ main > section,
   line-height: 255px;
   color: #f9f9f9;
   font-family: "Anton SC", sans-serif;
-  top: 20%;
+  top: auto;
   position: absolute;
 }
 
@@ -399,6 +401,8 @@ main > section,
 .sectionTwo > .bkg-two > .txt {
   align-items: flex-start;
   width: 60%;
+
+  position: relative;
 }
 
 /* ================================================================================================================================================ */
@@ -460,6 +464,7 @@ main > section,
   opacity: 0.3;
   background-color: white;
   background: transparent;
+  z-index: -1;
 }
 
 .clientsWrapper {
@@ -472,6 +477,7 @@ main > section,
   cursor: crosshair;
   position: absolute;
   pointer-events: all;
+  transition: opacity 0.3s ease;
 }
 
 .clientsWrapper .tilting img {
@@ -588,7 +594,7 @@ main > section,
 }
 
 .sectionFour {
-  transform: translateY(100%);
+  transform: translateY(0%);
 }
 
 .sectionFive,
@@ -696,6 +702,7 @@ main > section,
   line-height: 45px;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
+  z-index: 1;
 }
 
 .sectionFour > div > .serviceWrapper h1,
@@ -720,11 +727,17 @@ main > section,
   line-height: 35px;
   color: rgb(10, 10, 10);
   transform: translateX(-100%);
+  z-index: 1;
 }
 
 .sectionFour > div > .serviceWrapper h1,
 .sectionFour > div > .serviceWrapper p {
   transform: translateX(0%);
+  z-index: 1;
+}
+
+.sectionFour > div > .serviceWrapper img {
+  z-index: 0;
 }
 
 .custom-div {
@@ -780,6 +793,7 @@ main > section,
   top: 0;
   right: 0;
   width: 100%;
+  z-index: 0;
 }
 
 /* ================================================================================================================================================ */
@@ -794,7 +808,7 @@ main > section,
 }
 
 .sectionNine > header {
-  padding: 15rem 2rem 0 2rem;
+  padding: 10rem 2rem 0 2rem;
   width: 100%;
   height: auto;
   display: flex;
@@ -805,8 +819,8 @@ main > section,
 
 .sectionNine > header h1 {
   font-weight: 900;
-  font-size: 155px;
-  line-height: 155px;
+  font-size: 75px;
+  line-height: 85px;
   color: #222222;
   font-family: "Anton SC", sans-serif;
   text-transform: uppercase;
@@ -856,7 +870,7 @@ main > section,
   display: inline-block;
   box-shadow: -20px 20px 5px rgba(0, 0, 0, 0.1);
   transition: 1s;
-  transform: rotateX(45deg) rotateZ(-35deg) translateY(100%) translateX(0%);
+  transform: rotateX(45deg) rotateZ(-35deg) translateY(0%) translateX(0%);
   opacity: 1;
   perspective: 750px;
   /* transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
