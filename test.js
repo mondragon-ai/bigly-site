@@ -108,6 +108,68 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const mainElement = document.querySelector("main");
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
+  // Get Sections
+  const sections = document.querySelectorAll("main section");
+  let sectionHeight = 0;
+
+  const navList = document.querySelectorAll("a");
+
+  navList.forEach((e) => {
+    e.addEventListener("click", (event) => {
+      event.preventDefault();
+      console.log(e);
+      const href = e.getAttribute("href").slice(1);
+
+      switch (href) {
+        case "service": {
+          window.scrollTo({
+            top: sectionHeight * 5, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+        case "ecom": {
+          window.scrollTo({
+            top: sectionHeight * 5, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+        case "marketing": {
+          window.scrollTo({
+            top: sectionHeight * 5, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+        case "growth": {
+          window.scrollTo({
+            top: sectionHeight * 6, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+        case "partner": {
+          window.scrollTo({
+            top: sectionHeight * 7, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+        case "apply": {
+          window.scrollTo({
+            top: sectionHeight * 10, // Scroll to the appropriate section
+            behavior: "smooth", // Smooth scrolling
+          });
+          break;
+        }
+
+        default:
+          break;
+      }
+    });
+  });
+
   const cards = document.querySelectorAll(".team .card");
   const prevButton = document.querySelector(".btns img:first-child");
   const nextButton = document.querySelector(".btns img:last-child");
@@ -161,10 +223,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       prevButton.style.opacity = 1;
     }
   });
-
-  // Get Sections
-  const sections = document.querySelectorAll("main section");
-  let sectionHeight = 0;
 
   window.addEventListener("load", async () => {
     window.scrollTo({
