@@ -3,27 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <script src="/custom.js"></script>
 
+    <title>Bigly: Business Growth Agency</title>
+    <meta
+      name="description"
+      content="Bigly is a full-stack in-house business growth agency that specializes in eCommerce, marketing, fanbase growth, and brand-influencer partnerships. We ignite growth with bold ideas."
+    />
+    <meta
+      name="keywords"
+      content="business growth, eCommerce, marketing, influencer partnerships, fanbase growth, digital agency, Bigly"
+    />
+    <meta name="author" content="Bigly Team" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bigly: Business Growth Agency" />
+    <meta
+      property="og:description"
+      content="We are a full-stack in-house business growth agency specializing in tailored eCommerce solutions, omni-channel marketing, and fanbase growth. Discover what Bigly can do for you."
+    />
+    <meta property="og:url" content="https://bigly.com/" />
+    <meta
+      property="og:image"
+      content="https://cdn.shopify.com/s/files/1/0783/4802/6165/files/bigly_smiley_logo.png?v=1733771738"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bigly: Business Growth Agency" />
+    <meta
+      name="twitter:description"
+      content="Bigly: Where bold ideas ignite growth. Tailored eCommerce, innovative marketing, and fanbase building."
+    />
+    <meta
+      name="twitter:image"
+      content="https://cdn.shopify.com/s/files/1/0783/4802/6165/files/bigly_smiley_logo.png?v=1733771738"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/svg/bear-logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/svg/bear-logo.png" />
+
+    <!-- Preconnect for Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Bebas+Neue&family=Darker+Grotesque:wght@300..900&family=Playball&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Bebas+Neue&family=Darker+Grotesque:wght@300..900&family=Honk&family=Playball&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Styles and Scripts -->
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/custom.js"></script>
   </head>
   <body>
     <header class="navbar">
-      <img
-        src="https://cdn.shopify.com/s/files/1/0783/4802/6165/files/bigly.png?v=1727644792"
-        alt=""
-      />
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <a class="logoBtn" href="/">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0783/4802/6165/files/bigly.png?v=1727644792"
+          alt=""
+        />
+      </a>
+
       <nav>
         <ul>
-          <li><a href="">Services</a></li>
-          <li><a href="">Contact Us</a></li>
+          <li><a href="#service">Services</a></li>
+          <li><a href="#apply">Contact Us</a></li>
           <li>
             <a href="">
               <svg
@@ -96,12 +146,12 @@
           </li>
         </ul>
       </nav>
-      <button>Apply Now</button>
+      <a class="btn" href="#apply">Apply Now</a>
     </header>
 
     <main>
       <div class="explode-container"></div>
-      <section class="sectionOne" style="display: flex">
+      <section class="sectionOne">
         <img
           id="bg-lines"
           class="ease-animation bkg"
@@ -118,19 +168,19 @@
           />
         </div>
         <div class="txt ease-animation">
-          <h1 class="ease-animation">Results</h1>
+          <h1 class="ease-animation fast">Results</h1>
 
-          <h1 class="ease-animation abs">that</h1>
-          <h1 class="ease-animation">
+          <h1 class="ease-animation abs fast">that</h1>
+          <h1 class="ease-animation fast">
             Matters<strong style="color: rgb(193, 40, 46)">.</strong>
           </h1>
-          <p class="ease-animation">
+          <p class="ease-animation fast">
             We are a full stack in-house business growth agency.
           </p>
         </div>
       </section>
 
-      <section class="sectionTwo ease-animation" style="display: flex">
+      <section class="sectionTwo ease-animation">
         <div class="bkg-two ease-animation">
           <div>
             <img
@@ -140,6 +190,14 @@
             />
           </div>
           <div class="txt ease-animation">
+            <h1 class="ease-animation" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
+            <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
             <h1 class="ease-animation outline" style="z-index: 100">BIGLY</h1>
             <p class="ease-animation">
               We ignite brand growth by crafting unforgettable marketing that
@@ -150,7 +208,7 @@
         </div>
       </section>
 
-      <section class="sectionThree ease-animation" style="display: flex">
+      <section class="sectionThree ease-animation">
         <img
           id="topography"
           class="ease-animation"
@@ -171,8 +229,8 @@
         >
           <div class="">
             <img
-              class="bigly-logo"
-              src="https://cdn.shopify.com/s/files/1/0783/4802/6165/files/bigly_bear_head_logo.png?v=1733846334"
+              class="bigly-logo ease-animation"
+              src="./assets/svg/bear-logo.png"
               alt=""
             />
           </div>
@@ -227,14 +285,16 @@
         </div>
       </section>
 
+      <section class="ease-animation"></section>
+
       <!-- START PIN AND SLIDE HORIZANTALLY -->
-      <section class="sectionFour fade" style="display: flex">
-        <div id="ecom" class="ease-animation">
+      <section id="service" class="sectionFour fade">
+        <div id="#ecom" class="ease-animation">
           <div class="serviceWrapper ease-animation">
             <img
               src="https://superverse.co/_next/static/media/phase1bg.50580bb6.svg"
               alt="Background Image"
-              class="custom-img ease-animation"
+              class="custom-img ease-animation bkg"
             />
 
             <div class="custom-div ease-animation"></div>
@@ -260,20 +320,25 @@
             </p>
           </div>
           <div class="services ease-animation">
-            <a><span>eCommmerce</span></a>
-            <a><span>Marketing</span></a>
-            <a><span>Fanbase Growth</span></a>
-            <a><span>Creator Partners</span></a>
+            <a href="#ecom"><span>eCommmerce</span></a>
+            <a href="#marketing"><span>Marketing</span></a>
+            <a href="#growth"><span>Fanbase Growth</span></a>
+            <a href="#partner"><span>Creator Partners</span></a>
           </div>
         </div>
       </section>
 
-      <section class="sectionFive ease-animation" style="display: flex">
-        <div id="marketing" class="">
+      <section class="sectionFive ease-animation">
+        <div id="#marketing" class="">
           <div class="services ease-animation" style="right: 0">
-            <a><span>eCommmerce</span></a>
+            <a href="#ecom"> <span>eCommmerce</span></a>
           </div>
           <div class="serviceWrapper ease-animation">
+            <img
+              src="./assets/svg/bkg-1.svg"
+              alt="Background Image "
+              class="slide-five-img ease-animation bkg"
+            />
             <div class="custom-div ease-animation"></div>
             <h4 class="ease-animation">Marketing</h4>
             <h1 class="ease-animation">Omni Channel Marketing</h1>
@@ -289,27 +354,27 @@
               marketing that makes a difference, positioning you at the top of
               your market.
             </p>
-            <img
-              src="./assets/svg/bkg-1.svg"
-              alt="Background Image"
-              class="slide-five-img ease-animation"
-            />
           </div>
           <div class="services ease-animation">
-            <a><span>Marketing</span></a>
-            <a><span>Fanbase Growth</span></a>
-            <a><span>Creator Partners</span></a>
+            <a href="#marketing"><span>Marketing</span></a>
+            <a href="#growth"><span>Fanbase Growth</span></a>
+            <a href="#partner"><span>Creator Partners</span></a>
           </div>
         </div>
       </section>
 
-      <section class="sectionSix ease-animation" style="display: flex">
-        <div id="growth" class="">
+      <section class="sectionSix ease-animation">
+        <div id="#growth" class="">
           <div class="services ease-animation" style="right: 0">
-            <a><span>eCommmerce</span></a>
-            <a><span>Marketing</span></a>
+            <a href="#ecom"><span>eCommmerce</span></a>
+            <a href="#marketing"><span>Marketing</span></a>
           </div>
           <div class="serviceWrapper ease-animation">
+            <img
+              src="./assets/svg/bkg-1.svg"
+              alt="Background Image "
+              class="slide-five-img ease-animation bkg"
+            />
             <div class="custom-div ease-animation"></div>
             <h4 class="ease-animation">Community</h4>
             <h1 class="ease-animation">Fanbase Growth & Memberships</h1>
@@ -331,27 +396,27 @@
               create unique experiences that reward your fans and keep them
               coming back for more.
             </p>
-            <img
-              src="./assets/svg/bkg-1.svg"
-              alt="Background Image"
-              class="slide-five-img ease-animation"
-            />
           </div>
           <div class="services ease-animation">
-            <a><span>Fanbase Growth</span></a>
-            <a><span>Creator Partners</span></a>
+            <a href="#growth"><span>Fanbase Growth</span></a>
+            <a href="#partner"><span>Creator Partners</span></a>
           </div>
         </div>
       </section>
 
-      <section class="sectionSeven ease-animation" style="display: flex">
-        <div id="partner" class="">
+      <section class="sectionSeven ease-animation">
+        <div id="#partner" class="">
           <div class="services ease-animation" style="right: 0">
-            <a st><span>eCommmerce</span></a>
-            <a><span>Marketing</span></a>
-            <a><span>Fanbase Growth</span></a>
+            <a href="#ecom"><span>eCommmerce</span></a>
+            <a href="#marketing"><span>Marketing</span></a>
+            <a href="#growth"><span>Fanbase Growth</span></a>
           </div>
           <div class="serviceWrapper ease-animation">
+            <img
+              src="./assets/svg/bkg-1.svg"
+              alt="Background Image"
+              class="slide-five-img ease-animation bkg"
+            />
             <div class="custom-div ease-animation"></div>
             <h4 class="ease-animation">Parnership</h4>
             <h1 class="ease-animation">Brand + Influencer Partnerships</h1>
@@ -368,20 +433,15 @@
               your product, or an influencer looking to partner with brands that
               align with your ethos, we are here to bridge that gap.
             </p>
-            <img
-              src="./assets/svg/bkg-1.svg"
-              alt="Background Image"
-              class="slide-five-img ease-animation"
-            />
           </div>
           <div class="services ease-animation">
-            <a><span>Creator Partners</span></a>
+            <a href="#partner"><span>Creator Partners</span></a>
           </div>
         </div>
       </section>
       <!-- END PIN AND SLIDE HORIZANTALLY -->
 
-      <section class="sectionNine ease-animation" style="display: flex">
+      <section class="sectionNine ease-animation">
         <header>
           <h1>Meet The Team</h1>
           <div class="btns">
@@ -552,12 +612,12 @@
         </div>
       </section>
 
-      <section class="sectionEight ease-animation" style="display: flex">
+      <section id="apply" class="sectionEight ease-animation">
         <img
           src="./assets/svg/bkg-2.svg"
           alt="Background Image"
           style="opacity: 0.2; z-index: -1"
-          class="slide-five-img ease-animation"
+          class="slide-five-img ease-animation bkg"
         />
         <div class="txt">
           <h4>Join The</h4>
@@ -565,8 +625,9 @@
           <a id="apply">Apply Today</a>
         </div>
         <footer>
-          <a href="">Terms of Use</a>
-          <a href="">Privacy Policy</a>
+          <a href="/terms.html">Terms of Use</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <br class="br" />
           <span href="">© Bigly, LLC 2021 - 2025</span>
         </footer>
       </section>

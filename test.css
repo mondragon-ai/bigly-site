@@ -1255,8 +1255,8 @@ main > section,
   border: 6px solid rgb(255, 255, 255);
   background: #212121;
   position: absolute;
-  bottom: 20px;
-  left: 25px;
+  bottom: 20px !important;
+  left: 25px !important;
   font-family: monospace;
   line-height: 23px;
   font-size: 18px;
@@ -1330,7 +1330,7 @@ main > section,
     width: 35px;
     height: 35px;
     border: 2px solid rgb(255, 255, 255);
-    bottom: 25px;
+    bottom: 25px !important;
   }
 
   .card .overlay h1 {
