@@ -240,8 +240,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   var radius = 1 / eccentricity,
     radius2 = radius + radius;
   function createPoisson() {
-    // domain is the set of points which are still available to pick from
-    // D = union{ [d_i, d_i+1] | i is even }
     var domain = [radius, 1 - radius],
       measure = 1 - radius2,
       spline = [0, 1];
@@ -269,18 +267,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
       // Update the domain
       for (i = domain.length - 1; i > 0; i -= 2) {
         (l = i - 1), (a = domain[l]), (b = domain[i]);
-        // c---d          c---d  Do nothing
-        //   c-----d  c-----d    Move interior
-        //   c--------------d    Delete interval
-        //         c--d          Split interval
-        //       a------b
         if (a >= c && a < d)
-          if (b > d) domain[l] = d; // Move interior (Left case)
+          if (b > d) domain[l] = d;
           else domain.splice(l, 2);
-        // Delete interval
         else if (a < c && b > c)
-          if (b <= d) domain[i] = c; // Move interior (Right case)
-          else domain.splice(i, 0, c, d); // Split interval
+          if (b <= d) domain[i] = c;
+          else domain.splice(i, 0, c, d);
       }
 
       // Re-measure the domain
@@ -468,7 +460,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       );
 
       const data = await response.json();
-      console.log(data);
 
       if (data && data.ok) {
         setLoading(false);
@@ -521,59 +512,59 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   });
 
-  const cards = document.querySelectorAll(".team .card");
-  const prevButton = document.querySelector(".btns img:first-child");
-  const nextButton = document.querySelector(".btns img:last-child");
-  const cardsPerPage = isMobile ? 1 : 4;
-  let currentPage = 0;
+  // const cards = document.querySelectorAll(".team .card");
+  // const prevButton = document.querySelector(".btns img:first-child");
+  // const nextButton = document.querySelector(".btns img:last-child");
+  // const cardsPerPage = isMobile ? 1 : 4;
+  // let currentPage = 0;
 
-  function updateCards() {
-    cards.forEach((card, index) => {
-      if (
-        index >= currentPage * cardsPerPage &&
-        index < (currentPage + 1) * cardsPerPage
-      ) {
-        card.style.display = "inline-block";
-      } else {
-        card.style.display = "none";
-      }
-    });
-    updateButtons();
-  }
+  // function updateCards() {
+  //   cards.forEach((card, index) => {
+  //     if (
+  //       index >= currentPage * cardsPerPage &&
+  //       index < (currentPage + 1) * cardsPerPage
+  //     ) {
+  //       card.style.display = "inline-block";
+  //     } else {
+  //       card.style.display = "none";
+  //     }
+  //   });
+  //   updateButtons();
+  // }
 
-  function updateButtons() {
-    if (currentPage === 0) {
-      prevButton.style.opacity = 0.5;
-      prevButton.style.pointerEvents = "none";
-    } else {
-      prevButton.style.opacity = 1;
-      prevButton.style.pointerEvents = "auto";
-    }
+  // function updateButtons() {
+  //   if (currentPage === 0) {
+  //     prevButton.style.opacity = 0.5;
+  //     prevButton.style.pointerEvents = "none";
+  //   } else {
+  //     prevButton.style.opacity = 1;
+  //     prevButton.style.pointerEvents = "auto";
+  //   }
 
-    if ((currentPage + 1) * cardsPerPage >= cards.length) {
-      nextButton.style.opacity = 0.5;
-      nextButton.style.pointerEvents = "none";
-    } else {
-      nextButton.style.opacity = 1;
-      nextButton.style.pointerEvents = "auto";
-    }
-  }
+  //   if ((currentPage + 1) * cardsPerPage >= cards.length) {
+  //     nextButton.style.opacity = 0.5;
+  //     nextButton.style.pointerEvents = "none";
+  //   } else {
+  //     nextButton.style.opacity = 1;
+  //     nextButton.style.pointerEvents = "auto";
+  //   }
+  // }
 
-  nextButton.addEventListener("click", () => {
-    if ((currentPage + 1) * cardsPerPage < cards.length) {
-      currentPage++;
-      updateCards();
-      nextButton.style.opacity = 1;
-    }
-  });
+  // nextButton.addEventListener("click", () => {
+  //   if ((currentPage + 1) * cardsPerPage < cards.length) {
+  //     currentPage++;
+  //     updateCards();
+  //     nextButton.style.opacity = 1;
+  //   }
+  // });
 
-  prevButton.addEventListener("click", () => {
-    if (currentPage > 0) {
-      currentPage--;
-      updateCards();
-      prevButton.style.opacity = 1;
-    }
-  });
+  // prevButton.addEventListener("click", () => {
+  //   if (currentPage > 0) {
+  //     currentPage--;
+  //     updateCards();
+  //     prevButton.style.opacity = 1;
+  //   }
+  // });
 
   window.addEventListener("load", async () => {
     window.scrollTo({
@@ -583,9 +574,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setTimeout(() => resetSections(sections[0]), 500);
 
     setTimeout(() => {
+      console.log({sections});
       // Set Scrollable Height
       sectionHeight = getHeight(sections[0]);
-      mainElement.style.paddingBottom = `${sectionHeight * 11}px`;
+      mainElement.style.paddingBottom = `${sectionHeight * 10}px`;
     }, 700);
   });
 
@@ -626,8 +618,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     handleServiceSections(scrollY, sectionHeight, sections[4], sections[5], 0);
     handleServiceSections(scrollY, sectionHeight, sections[5], sections[6], 1);
     handleServiceSections(scrollY, sectionHeight, sections[6], sections[7], 2);
-    handleTeamSections(scrollY, sectionHeight, sections[7], sections[8]);
-    handleApplySections(scrollY, sectionHeight, sections[8], sections[9]);
+    // handleTeamSections(scrollY, sectionHeight, sections[7], sections[8]);
+    handleApplySections(scrollY, sectionHeight, sections[7], sections[8]);
   });
 
   updateCards();
@@ -810,6 +802,7 @@ const lastTranslations = [];
  * @param {HTML Element} next
  */
 const handleSectionOne = (scrollY, sectionHeight, current, next = null) => {
+  console.log({scrollY, sectionHeight, current, next});
   const start = current.offsetTop;
   const end = start + sectionHeight;
   const progress = calculateScrollProgress(scrollY, start, end);

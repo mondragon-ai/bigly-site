@@ -32,7 +32,7 @@ body {
 }
 
 body {
-  cursor: url("/assets/svg/bear.png"), auto;
+  /* cursor: url("/assets/svg/bear.png"), auto; */
   /* height: 800vh; */
   /* min-height: 800vh; */
 }
