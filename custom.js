@@ -411,12 +411,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   });
 
+  //angel@gobigly.com service_xvmj8eh template_f8s11ny
+
   apply.addEventListener("click", async () => {
-    const state = {
+    emailjs.init("IWM6-IuVqPqf_-YeS");
+
+    // const state = {
+    //   first_name: document.getElementById("first_name").value || "",
+    //   last_name: document.getElementById("last_name").value || "",
+    //   email: document.getElementById("email").value || "",
+    //   phone: "",
+    //   note: document.getElementById("notes").value || "",
+    // };
+
+    const formData = {
       first_name: document.getElementById("first_name").value || "",
       last_name: document.getElementById("last_name").value || "",
       email: document.getElementById("email").value || "",
-      phone: "",
       note: document.getElementById("notes").value || "",
     };
 
@@ -442,29 +453,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://us-central1-bigly-server.cloudfunctions.net/forms/influencers/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            first_name: state.first_name || "",
-            last_name: state.last_name || "",
-            email: state.email || "",
-            phone: state.phone || null,
-            note: state.note || "",
-          }),
-        },
-      );
+      // const response = await fetch(
+      //   "https://us-central1-bigly-server.cloudfunctions.net/forms/influencers/contact",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       first_name: state.first_name || "",
+      //       last_name: state.last_name || "",
+      //       email: state.email || "",
+      //       phone: state.phone || null,
+      //       note: state.note || "",
+      //     }),
+      //   },
+      // );
 
-      const data = await response.json();
+      // const data = await response.json();
 
-      if (data && data.ok) {
-        setLoading(false);
-        submit(true);
-      }
+      emailjs
+        .send("service_8d8hv4w", "template_f8s11ny", formData)
+        .then((response) => {
+          console.log("SUCCESS!", response.status, response.text);
+
+          setLoading(false);
+          submit(true);
+        })
+        .catch((error) => {
+          console.error("FAILED...", error);
+          apply.innerHTML = "Submit Application";
+          apply.disabled = false;
+        });
+
+      // if (data && data.ok) {
+      //   setLoading(false);
+      //   submit(true);
+      // }
     } catch (error) {
       console.error("Error:", error);
       setLoading(false);
@@ -574,7 +599,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setTimeout(() => resetSections(sections[0]), 500);
 
     setTimeout(() => {
-      console.log({sections});
+      // console.log({sections});
       // Set Scrollable Height
       sectionHeight = getHeight(sections[0]);
       mainElement.style.paddingBottom = `${sectionHeight * 10}px`;
@@ -622,7 +647,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     handleApplySections(scrollY, sectionHeight, sections[7], sections[8]);
   });
 
-  updateCards();
+  // updateCards();
 
   document.querySelectorAll(".main-image").forEach((el) => {
     const handleExplode = (mobile) => {
